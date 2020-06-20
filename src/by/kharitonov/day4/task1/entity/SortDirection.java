@@ -1,7 +1,7 @@
 package by.kharitonov.day4.task1.entity;
 
 public enum SortDirection {
-    UP("Up"), DOWN("Dwon");
+    UP("Up"), DOWN("Down");
 
     private String direction;
 

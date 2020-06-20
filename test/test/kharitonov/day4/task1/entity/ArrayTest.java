@@ -1,4 +1,4 @@
-package by.epam.kharitonov.day4.task1.entity;
+package test.kharitonov.day4.task1.entity;
 
 import by.kharitonov.day4.task1.entity.Array;
 import org.testng.annotations.DataProvider;
@@ -19,11 +19,6 @@ public class ArrayTest {
         testArray.setElement(2, -3);
         testArray.setElement(3, 0);
         testArray.setElement(4, 23);
-    }
-
-    @Test
-    public void testToString() {
-        assertEquals(testArray.toString(), "Array{1,2,-3,0,23}");
     }
 
     @Test
@@ -65,5 +60,17 @@ public class ArrayTest {
     public void testGetElement(int index, Optional<Integer> expectedResult) {
         Optional<Integer> actualResult = testArray.getElement(index);
         assertEquals(actualResult, expectedResult);
+    }
+
+    @Test
+    public void testGetFirst() {
+        int actualResult = testArray.getFirst();
+        assertEquals(actualResult,1);
+    }
+
+    @Test
+    public void testGetLast() {
+        int actualResult = testArray.getLast();
+        assertEquals(actualResult,23);
     }
 }

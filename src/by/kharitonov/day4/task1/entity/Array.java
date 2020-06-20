@@ -4,48 +4,50 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class Array {
-    private int[] array;
+    private int[] dataArray;
 
     public Array(int size) {
-        array = new int[size];
+        dataArray = new int[size];
     }
 
-    public Array(int[] array) {
-        this.array = new int[array.length];
-        copy(array);
-    }
-
-    private void copy(int[] array) {
-        for (int i = 0; i < array.length; i++) {
-            this.array[i] = array[i];
-        }
+    public Array(int[] dataArray) {
+        this.dataArray = new int[dataArray.length];
+        this.dataArray = Arrays.copyOf(dataArray, dataArray.length);
     }
 
     public int getLength() {
-        return array.length;
+        return dataArray.length;
     }
 
     public boolean setElement(int index, int value) {
         if (!inRange(index)) {
             return false;
         }
-        array[index] = value;
+        dataArray[index] = value;
         return true;
     }
 
     private boolean inRange(int index) {
-        return index < array.length && index >= 0;
+        return index < dataArray.length && index >= 0;
     }
 
     public Optional<Integer> getElement(int index) {
         if (!inRange(index)) {
             return Optional.ofNullable(null);
         }
-        return Optional.of(array[index]);
+        return Optional.of(dataArray[index]);
+    }
+
+    public int getFirst() {
+        return dataArray[0];
+    }
+
+    public int getLast() {
+        return dataArray[dataArray.length - 1];
     }
 
     public Array copy() {
-        return new Array(array);
+        return new Array(dataArray);
     }
 
     @Override
@@ -57,24 +59,24 @@ public class Array {
             return false;
         }
         Array array1 = (Array) o;
-        if (array.length != array1.getLength()) {
+        if (dataArray.length != array1.getLength()) {
             return false;
         }
-        return Arrays.equals(array, array1.array);
+        return Arrays.equals(dataArray, array1.dataArray);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(array);
+        return Arrays.hashCode(dataArray);
     }
 
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Array{");
-        for (int i = 0; i < array.length - 1; i++) {
-            sb.append(array[i]).append(",");
+        for (int i = 0; i < dataArray.length - 1; i++) {
+            sb.append(dataArray[i]).append(",");
         }
-        sb.append(array[array.length - 1]).append('}');
+        sb.append(dataArray[dataArray.length - 1]).append('}');
         return sb.toString();
     }
 }
