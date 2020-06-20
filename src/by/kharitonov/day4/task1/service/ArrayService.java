@@ -3,13 +3,16 @@ package by.kharitonov.day4.task1.service;
 import by.kharitonov.day4.task1.entity.Array;
 import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task1.exception.ArrayException;
+import by.kharitonov.day4.task1.validator.ArrayValidador;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class ArrayService {
-    public void selectionSort(Array array, SortDirection direction) {
+    public void selectionSort(@NotNull Array array,
+                              @NotNull SortDirection direction) {
         boolean sortFlag = (direction == SortDirection.UP);
         int temp;
         for (int i = 0; i < array.getLength(); i++) {
@@ -26,14 +29,19 @@ public class ArrayService {
         }
     }
 
-    private void swap(Array array, int index1, int index2) {
+    private boolean swap(@NotNull Array array, int index1, int index2) {
+        if (!new ArrayValidador().validateIndexes(array, index1, index2)) {
+            return false;
+        }
         int value1 = array.getElement(index1).get();
         int value2 = array.getElement(index2).get();
         array.setElement(index1, value2);
         array.setElement(index2, value1);
+        return true;
     }
 
-    public void bubbleSort(Array array, SortDirection direction) {
+    public void bubbleSort(@NotNull Array array,
+                           @NotNull SortDirection direction) {
         boolean sortFlag = (direction != SortDirection.UP);
         boolean cycleFlag;
         do {
@@ -48,24 +56,15 @@ public class ArrayService {
         } while (cycleFlag);
     }
 
-    public void bogoSort(Array array, SortDirection direction) {
-        while (!isSorted(array, direction)) {
+    public void bogoSort(@NotNull Array array,
+                         @NotNull SortDirection direction) {
+        ArrayValidador validador = new ArrayValidador();
+        while (!validador.validateIsSorted(array, direction)) {
             shuffle(array);
         }
     }
 
-    private boolean isSorted(Array array, SortDirection direction) {
-        boolean sortFlag = (direction != SortDirection.UP);
-        for (int i = 0; i < array.getLength() - 1; i++) {
-            if (!(array.getElement(i).get() <
-                    array.getElement(i + 1).get() ^ sortFlag)) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void shuffle(Array array) {
+    private void shuffle(@NotNull Array array) {
         Random random = new Random();
         for (int i = 0; i < array.getLength(); i++) {
             int j = random.nextInt(array.getLength());
@@ -73,12 +72,13 @@ public class ArrayService {
         }
     }
 
-    public int binarySearch(Array array, int searchValue)
+    public int binarySearch(@NotNull Array array, int searchValue)
             throws ArrayException {
-        if (!isSorted(array, SortDirection.UP)) {
+        ArrayValidador validador = new ArrayValidador();
+        if (!validador.validateIsSorted(array, SortDirection.UP)) {
             throw new ArrayException("Array is not sorted!");
         }
-        if (searchValue < array.getFirst() || searchValue > array.getLast()) {
+        if (!validador.validateBinarySeachValue(array, searchValue)) {
             return -1;
         }
         int firstIndex = 0;
@@ -97,29 +97,15 @@ public class ArrayService {
         return -1;
     }
 
-    public int minValue(Array array) {
-        int min = 0;
-        for (int i = 1; i < array.getLength(); i++) {
-            if (array.getElement(i).get() <
-                    array.getElement(min).get()) {
-                min = i;
-            }
-        }
-        return array.getElement(min).get();
+    public int minValue(@NotNull Array array) {
+        return array.minValue();
     }
 
-    public int maxValue(Array array) {
-        int max = 0;
-        for (int i = 1; i < array.getLength(); i++) {
-            if (array.getElement(i).get() >
-                    array.getElement(max).get()) {
-                max = i;
-            }
-        }
-        return array.getElement(max).get();
+    public int maxValue(@NotNull Array array) {
+        return array.maxValue();
     }
 
-    public List<Integer> simpleNumbers(Array array) {
+    public List<Integer> simpleNumbers(@NotNull Array array) {
         ArrayList<Integer> simpleList = new ArrayList<>();
         for (int i = 0; i < array.getLength(); i++) {
             int element = array.getElement(i).get();

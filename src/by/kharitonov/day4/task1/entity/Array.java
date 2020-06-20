@@ -46,6 +46,26 @@ public class Array {
         return dataArray[dataArray.length - 1];
     }
 
+    public int maxValue() {
+        int max = 0;
+        for (int i = 1; i < dataArray.length; i++) {
+            if (dataArray[i] > dataArray[max]) {
+                max = i;
+            }
+        }
+        return dataArray[max];
+    }
+
+    public int minValue() {
+        int min = 0;
+        for (int i = 1; i < dataArray.length; i++) {
+            if (dataArray[i] < dataArray[min]) {
+                min = i;
+            }
+        }
+        return dataArray[min];
+    }
+
     public Array copy() {
         return new Array(dataArray);
     }
