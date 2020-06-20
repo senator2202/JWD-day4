@@ -1,16 +1,29 @@
 package test.kharitonov.day4.task1.provider;
 
 import by.kharitonov.day4.task1.entity.Array;
+import by.kharitonov.day4.task1.exception.ArrayException;
 import by.kharitonov.day4.task1.provider.ArrayFiller;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 
 import static org.testng.Assert.*;
 
 public class ArrayFillerTest {
     private ArrayFiller arrayFiller = new ArrayFiller();
+    private final Array testArray;
+
+    {
+        testArray = new Array(5);
+        testArray.setElement(0, 100);
+        testArray.setElement(1, 255);
+        testArray.setElement(2, -99);
+        testArray.setElement(3, 755);
+        testArray.setElement(4, -666);
+    }
 
     @DataProvider(name = "dataForRandomFill")
     @Test
@@ -34,9 +47,82 @@ public class ArrayFillerTest {
 
 
     @Test
+    public void testConsoleFillTrue() {
+        Array array = new Array(5);
+        InputStream sysInBackup = System.in;
+        String data = "100" + System.lineSeparator() +
+                "255" + System.lineSeparator() +
+                "-99" + System.lineSeparator() +
+                "755" + System.lineSeparator() +
+                "-666" + System.lineSeparator();
+        ByteArrayInputStream in =
+                new ByteArrayInputStream(data.getBytes());
+        System.setIn(in);
+        boolean actual = arrayFiller.consoleFill(array, 900, in);
+        System.setIn(sysInBackup);
+        assertTrue(actual);
+    }
+
+    @Test
+    public void testConsoleFillFalse() {
+        Array array = new Array(5);
+        InputStream sysInBackup = System.in;
+        String data = "100" + System.lineSeparator() +
+                "255" + System.lineSeparator() +
+                "-99" + System.lineSeparator() +
+                "755" + System.lineSeparator() +
+                "-666" + System.lineSeparator();
+        ByteArrayInputStream in =
+                new ByteArrayInputStream(data.getBytes());
+        System.setIn(in);
+        boolean actual = arrayFiller.consoleFill(array, 1000, in);
+        System.setIn(sysInBackup);
+        assertFalse(actual);
+    }
+
+    @Test
     public void testConsoleFill() {
         Array array = new Array(5);
-        boolean actual = arrayFiller.consoleFill(array, 900);
-        assertTrue(actual);
+        InputStream sysInBackup = System.in;
+        String data = "100" + System.lineSeparator() +
+                "255" + System.lineSeparator() +
+                "-99" + System.lineSeparator() +
+                "755" + System.lineSeparator() +
+                "-666" + System.lineSeparator();
+        ByteArrayInputStream in =
+                new ByteArrayInputStream(data.getBytes());
+        System.setIn(in);
+        arrayFiller.consoleFill(array, 800, in);
+        System.setIn(sysInBackup);
+        assertEquals(array, testArray);
+    }
+
+    @Test
+    public void testFileFillTrue() {
+        try {
+            Array array = new Array(5);
+            arrayFiller.fileFill(array, "Array.txt");
+            assertEquals(array, testArray);
+        } catch (ArrayException e) {
+            fail();
+        }
+    }
+
+    @DataProvider(name = "dataForFileFillException")
+    @Test
+    public Object[][] dataForFileFillException() {
+        return new Object[][]{
+                {5, "WrongFile.txt"},
+                {5, "WrongArray.txt"}
+        };
+    }
+
+    @Parameters({"size", "fileName"})
+    @Test(expectedExceptions = ArrayException.class,
+            dataProvider = "dataForFileFillException")
+    public void testFileFillException(int size, String fileName)
+            throws ArrayException {
+        Array array = new Array(size);
+        arrayFiller.fileFill(array, fileName);
     }
 }

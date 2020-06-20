@@ -1,8 +1,14 @@
 package by.kharitonov.day4.task1.provider;
 
 import by.kharitonov.day4.task1.entity.Array;
+import by.kharitonov.day4.task1.exception.ArrayException;
+import by.kharitonov.day4.task1.parser.ArrayParser;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -27,15 +33,46 @@ public class ArrayFiller {
         return bound > 0 && bound <= MAX_BOUND;
     }
 
-    public boolean consoleFill(@NotNull Array array, int bound) {
+    public boolean consoleFill(@NotNull Array array, int bound,
+                               InputStream in) {
         if (!inRange(bound)) {
             return false;
         }
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(in);
         for (int i = 0; i < array.getLength(); i++) {
             int value = scanner.nextInt();
-            array.setElement(i, value);
+            if (value <= bound) {
+                array.setElement(i, value);
+            }
         }
         return true;
+    }
+
+    public boolean fileFill(@NotNull Array array, @NotNull String fileName)
+            throws ArrayException {
+        Path path = Paths.get(fileName);
+        try (Scanner scanner = new Scanner(path)) {
+            ArrayParser parser = new ArrayParser();
+            String[] data = new String[2];
+            Array filledArray;
+            scanner.useDelimiter(System.getProperty("line.separator"));
+            data[0] = scanner.next();
+            data[1] = scanner.next();
+            filledArray = parser.parseArray(data);
+            copy(filledArray, array);
+            return true;
+        } catch (IOException e) {
+            throw new ArrayException("Wrong file name!");
+        }
+    }
+
+    private void copy(Array source, Array destination) throws ArrayException {
+        if (source.getLength() != destination.getLength()) {
+            throw new ArrayException("Different array sizes!");
+        }
+        for (int i = 0; i < source.getLength(); i++) {
+            int value = source.getElement(i).get();
+            destination.setElement(i, value);
+        }
     }
 }
