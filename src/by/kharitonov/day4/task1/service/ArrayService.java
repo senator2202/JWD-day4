@@ -42,13 +42,13 @@ public class ArrayService {
 
     public void bubbleSort(@NotNull Array array,
                            @NotNull SortDirection direction) {
-        boolean sortFlag = (direction != SortDirection.UP);
+        boolean sortFlag = (direction == SortDirection.UP);
         boolean cycleFlag;
         do {
             cycleFlag = false;
             for (int i = 0; i < array.getLength() - 1; i++) {
-                if (!(array.getElement(i).get() <
-                        array.getElement(i + 1).get() ^ sortFlag)) {
+                if (!(array.getElement(i+1).get() <
+                        array.getElement(i ).get() ^ sortFlag)) {
                     swap(array, i, i + 1);
                     cycleFlag = true;
                 }
