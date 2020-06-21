@@ -5,7 +5,7 @@ import by.kharitonov.day4.task1.parser.ArrayParser;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class IntegerArrayParserTest {
+public class ArrayParserTest {
     private ArrayParser arrayParser = new ArrayParser();
 
     @Test

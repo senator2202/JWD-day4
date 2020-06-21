@@ -12,7 +12,7 @@ import java.io.InputStream;
 
 import static org.testng.Assert.*;
 
-public class IntegerArrayFillerTest {
+public class ArrayFillerTest {
     private ArrayFiller arrayFiller = new ArrayFiller();
     private final IntegerArray testArray;
 

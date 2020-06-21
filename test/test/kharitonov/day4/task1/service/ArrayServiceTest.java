@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
-public class IntegerArrayServiceTest {
+public class ArrayServiceTest {
     ArrayService arrayService = new ArrayService();
     private final IntegerArray testArray;
     private final IntegerArray sortedUpArray;

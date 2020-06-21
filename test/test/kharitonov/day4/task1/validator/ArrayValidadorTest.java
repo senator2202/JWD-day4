@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class IntegerArrayValidadorTest {
+public class ArrayValidadorTest {
     private ArrayValidador arrayValidador = new ArrayValidador();
     private final IntegerArray testArray;
     private final IntegerArray sortedUpArray;
