@@ -1,6 +1,6 @@
 package test.kharitonov.day4.task1.service;
 
-import by.kharitonov.day4.task1.entity.Array;
+import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task1.exception.ArrayException;
 import by.kharitonov.day4.task1.service.ArrayService;
@@ -13,16 +13,16 @@ import java.util.ArrayList;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
-public class ArrayServiceTest {
+public class IntegerArrayServiceTest {
     ArrayService arrayService = new ArrayService();
-    private final Array testArray;
-    private final Array sortedUpArray;
-    private final Array sortedDownArray;
+    private final IntegerArray testArray;
+    private final IntegerArray sortedUpArray;
+    private final IntegerArray sortedDownArray;
 
     {
-        testArray = new Array(7);
-        sortedUpArray = new Array(7);
-        sortedDownArray = new Array(7);
+        testArray = new IntegerArray(7);
+        sortedUpArray = new IntegerArray(7);
+        sortedDownArray = new IntegerArray(7);
         testArray.setElement(0, 2);
         testArray.setElement(1, 199);
         testArray.setElement(2, -3);
@@ -57,27 +57,27 @@ public class ArrayServiceTest {
 
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
     @Test(dataProvider = "dataForSort")
-    public void testSelectionSort(Array sourceArray,
+    public void testSelectionSort(IntegerArray sourceArray,
                                   SortDirection sortDirection,
-                                  Array expectedArray) {
+                                  IntegerArray expectedArray) {
         arrayService.selectionSort(sourceArray, sortDirection);
         assertEquals(sourceArray, expectedArray);
     }
 
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
     @Test(dataProvider = "dataForSort")
-    public void testBubbleSort(Array sourceArray,
+    public void testBubbleSort(IntegerArray sourceArray,
                                SortDirection sortDirection,
-                               Array expectedArray) {
+                               IntegerArray expectedArray) {
         arrayService.bubbleSort(sourceArray, sortDirection);
         assertEquals(sourceArray, expectedArray);
     }
 
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
     @Test(dataProvider = "dataForSort")
-    public void testBogoSort(Array sourceArray,
+    public void testBogoSort(IntegerArray sourceArray,
                              SortDirection sortDirection,
-                             Array expectedArray) {
+                             IntegerArray expectedArray) {
         arrayService.bogoSort(sourceArray, sortDirection);
         assertEquals(sourceArray, expectedArray);
     }
@@ -96,7 +96,8 @@ public class ArrayServiceTest {
 
     @Parameters({"array", "searchValue", "expected"})
     @Test(dataProvider = "dataForTestBinarySearch")
-    public void testBinarySearch(Array array, int searchValue, int expected) {
+    public void testBinarySearch(IntegerArray array, int searchValue,
+                                 int expected) {
         try {
             int actual = arrayService.binarySearch(array, searchValue);
             assertEquals(actual, expected);
@@ -117,7 +118,7 @@ public class ArrayServiceTest {
     @Parameters({"array", "searchValue"})
     @Test(dataProvider = "dataForTestBinarySearchException",
             expectedExceptions = ArrayException.class)
-    public void testBinarySearchException(Array array, int searchValue)
+    public void testBinarySearchException(IntegerArray array, int searchValue)
             throws ArrayException {
         arrayService.binarySearch(array, searchValue);
     }
@@ -158,7 +159,8 @@ public class ArrayServiceTest {
 
     @Parameters({"array", "expected"})
     @Test(dataProvider = "dataForSimpleNumbers")
-    public void testSimpleNumbers(Array array, ArrayList<Integer> expected) {
+    public void testSimpleNumbers(IntegerArray array,
+                                  ArrayList<Integer> expected) {
         ArrayList<Integer> actual = (ArrayList<Integer>)
                 arrayService.simpleNumbers(array);
         assertEquals(actual, expected);
@@ -166,7 +168,7 @@ public class ArrayServiceTest {
 
     @Test
     public void testFibonacciNumbers() {
-        Array array = new Array(7);
+        IntegerArray array = new IntegerArray(7);
         ArrayList<Integer> expected = new ArrayList<>();
         array.setElement(0, 0);
         array.setElement(1, 22);
@@ -187,7 +189,7 @@ public class ArrayServiceTest {
 
     @Test
     public void testThreeDifferentDigitNumbers() {
-        Array array = new Array(6);
+        IntegerArray array = new IntegerArray(6);
         ArrayList<Integer> expected = new ArrayList<>();
         array.setElement(0, 0);
         array.setElement(1, 234);

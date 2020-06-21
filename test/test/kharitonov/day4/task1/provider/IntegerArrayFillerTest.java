@@ -1,6 +1,6 @@
 package test.kharitonov.day4.task1.provider;
 
-import by.kharitonov.day4.task1.entity.Array;
+import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.exception.ArrayException;
 import by.kharitonov.day4.task1.provider.ArrayFiller;
 import org.testng.annotations.DataProvider;
@@ -12,12 +12,12 @@ import java.io.InputStream;
 
 import static org.testng.Assert.*;
 
-public class ArrayFillerTest {
+public class IntegerArrayFillerTest {
     private ArrayFiller arrayFiller = new ArrayFiller();
-    private final Array testArray;
+    private final IntegerArray testArray;
 
     {
-        testArray = new Array(5);
+        testArray = new IntegerArray(5);
         testArray.setElement(0, 100);
         testArray.setElement(1, 255);
         testArray.setElement(2, -99);
@@ -40,7 +40,7 @@ public class ArrayFillerTest {
     @Parameters("highBound")
     @Test(dataProvider = "dataForRandomFill")
     public void testRandomFill(int bound, boolean expected) {
-        Array array = new Array(25);
+        IntegerArray array = new IntegerArray(25);
         boolean actual = arrayFiller.randomFill(array, bound);
         assertEquals(actual, expected);
     }
@@ -48,7 +48,7 @@ public class ArrayFillerTest {
 
     @Test
     public void testConsoleFillTrue() {
-        Array array = new Array(5);
+        IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
         String data = "100" + System.lineSeparator() +
                 "255" + System.lineSeparator() +
@@ -65,7 +65,7 @@ public class ArrayFillerTest {
 
     @Test
     public void testConsoleFillFalse() {
-        Array array = new Array(5);
+        IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
         String data = "100" + System.lineSeparator() +
                 "255" + System.lineSeparator() +
@@ -82,7 +82,7 @@ public class ArrayFillerTest {
 
     @Test
     public void testConsoleFill() {
-        Array array = new Array(5);
+        IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
         String data = "100" + System.lineSeparator() +
                 "255" + System.lineSeparator() +
@@ -100,8 +100,8 @@ public class ArrayFillerTest {
     @Test
     public void testFileFillTrue() {
         try {
-            Array array = new Array(5);
-            arrayFiller.fileFill(array, "Array.txt");
+            IntegerArray array = new IntegerArray(5);
+            arrayFiller.fileFill(array, "IntegerArray.txt");
             assertEquals(array, testArray);
         } catch (ArrayException e) {
             fail();
@@ -122,7 +122,7 @@ public class ArrayFillerTest {
             dataProvider = "dataForFileFillException")
     public void testFileFillException(int size, String fileName)
             throws ArrayException {
-        Array array = new Array(size);
+        IntegerArray array = new IntegerArray(size);
         arrayFiller.fileFill(array, fileName);
     }
 }

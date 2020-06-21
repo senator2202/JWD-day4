@@ -1,6 +1,6 @@
 package by.kharitonov.day4.task1.provider;
 
-import by.kharitonov.day4.task1.entity.Array;
+import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.exception.ArrayException;
 import by.kharitonov.day4.task1.parser.ArrayParser;
 import org.jetbrains.annotations.NotNull;
@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class ArrayFiller {
     private static final int MAX_BOUND = 999;
 
-    public boolean randomFill(@NotNull Array array, int bound) {
+    public boolean randomFill(@NotNull IntegerArray array, int bound) {
         if (!inRange(bound)) {
             return false;
         }
@@ -33,7 +33,7 @@ public class ArrayFiller {
         return bound > 0 && bound <= MAX_BOUND;
     }
 
-    public boolean consoleFill(@NotNull Array array, int bound,
+    public boolean consoleFill(@NotNull IntegerArray array, int bound,
                                InputStream in) {
         if (!inRange(bound)) {
             return false;
@@ -48,13 +48,14 @@ public class ArrayFiller {
         return true;
     }
 
-    public boolean fileFill(@NotNull Array array, @NotNull String fileName)
+    public boolean fileFill(@NotNull IntegerArray array,
+                            @NotNull String fileName)
             throws ArrayException {
         Path path = Paths.get(fileName);
         try (Scanner scanner = new Scanner(path)) {
             ArrayParser parser = new ArrayParser();
             String[] data = new String[2];
-            Array filledArray;
+            IntegerArray filledArray;
             scanner.useDelimiter(System.getProperty("line.separator"));
             data[0] = scanner.next();
             data[1] = scanner.next();
@@ -66,7 +67,8 @@ public class ArrayFiller {
         }
     }
 
-    private void copy(Array source, Array destination) throws ArrayException {
+    private void copy(IntegerArray source, IntegerArray destination)
+            throws ArrayException {
         if (source.getLength() != destination.getLength()) {
             throw new ArrayException("Different array sizes!");
         }

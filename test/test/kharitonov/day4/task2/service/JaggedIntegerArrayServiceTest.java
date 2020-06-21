@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class JaggedArrayServiceTest {
+public class JaggedIntegerArrayServiceTest {
     JaggedArrayService service = new JaggedArrayService();
 
     @DataProvider(name = "dataForSortRowsSumItems")

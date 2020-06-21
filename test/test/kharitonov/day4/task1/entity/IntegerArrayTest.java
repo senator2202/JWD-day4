@@ -1,6 +1,6 @@
 package test.kharitonov.day4.task1.entity;
 
-import by.kharitonov.day4.task1.entity.Array;
+import by.kharitonov.day4.task1.entity.IntegerArray;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -9,11 +9,11 @@ import java.util.Optional;
 
 import static org.testng.Assert.assertEquals;
 
-public class ArrayTest {
-    private final Array testArray;
+public class IntegerArrayTest {
+    private final IntegerArray testArray;
 
     {
-        testArray = new Array(5);
+        testArray = new IntegerArray(5);
         testArray.setElement(0, 1);
         testArray.setElement(1, 2);
         testArray.setElement(2, -3);

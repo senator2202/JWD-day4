@@ -1,6 +1,6 @@
 package test.kharitonov.day4.task1.validator;
 
-import by.kharitonov.day4.task1.entity.Array;
+import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task1.validator.ArrayValidador;
 import org.testng.annotations.DataProvider;
@@ -9,16 +9,16 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class ArrayValidadorTest {
+public class IntegerArrayValidadorTest {
     private ArrayValidador arrayValidador = new ArrayValidador();
-    private final Array testArray;
-    private final Array sortedUpArray;
-    private final Array sortedDownArray;
+    private final IntegerArray testArray;
+    private final IntegerArray sortedUpArray;
+    private final IntegerArray sortedDownArray;
 
     {
-        testArray = new Array(7);
-        sortedUpArray = new Array(7);
-        sortedDownArray = new Array(7);
+        testArray = new IntegerArray(7);
+        sortedUpArray = new IntegerArray(7);
+        sortedDownArray = new IntegerArray(7);
         testArray.setElement(0, 2);
         testArray.setElement(1, 199);
         testArray.setElement(2, -3);
@@ -45,7 +45,7 @@ public class ArrayValidadorTest {
     @DataProvider(name = "dataForValidateIndexes")
     @Test
     public Object[][] dataForValidateIndexes() {
-        Array array = new Array(5);
+        IntegerArray array = new IntegerArray(5);
         array.setElement(0, 25);
         return new Object[][]{
                 {array, true, 0, 4},
@@ -57,7 +57,7 @@ public class ArrayValidadorTest {
 
     @Parameters({"array", "expected", "indexes"})
     @Test(dataProvider = "dataForValidateIndexes")
-    public void testValidateIndexes(Array array, boolean expected,
+    public void testValidateIndexes(IntegerArray array, boolean expected,
                                     int[] indexes) {
         boolean actual = arrayValidador.validateIndexes(array, indexes);
         assertEquals(actual, expected);
@@ -78,7 +78,8 @@ public class ArrayValidadorTest {
 
     @Parameters({"array", "sortDirection", "expected"})
     @Test(dataProvider = "dataForValidateIsSorted")
-    public void testValidateIsSorted(Array array, SortDirection sortDirection,
+    public void testValidateIsSorted(IntegerArray array,
+                                     SortDirection sortDirection,
                                      boolean expected) {
         boolean actual = arrayValidador.validateIsSorted(array, sortDirection);
         assertEquals(actual, expected);

@@ -1,6 +1,6 @@
 package by.kharitonov.day4.task1.service;
 
-import by.kharitonov.day4.task1.entity.Array;
+import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task1.exception.ArrayException;
 import by.kharitonov.day4.task1.validator.ArrayValidador;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 public class ArrayService {
-    public void selectionSort(@NotNull Array array,
+    public void selectionSort(@NotNull IntegerArray array,
                               @NotNull SortDirection direction) {
         boolean sortFlag = (direction == SortDirection.UP);
         int temp;
@@ -29,7 +29,7 @@ public class ArrayService {
         }
     }
 
-    private boolean swap(@NotNull Array array, int index1, int index2) {
+    private boolean swap(@NotNull IntegerArray array, int index1, int index2) {
         if (!new ArrayValidador().validateIndexes(array, index1, index2)) {
             return false;
         }
@@ -40,7 +40,7 @@ public class ArrayService {
         return true;
     }
 
-    public void bubbleSort(@NotNull Array array,
+    public void bubbleSort(@NotNull IntegerArray array,
                            @NotNull SortDirection direction) {
         boolean sortFlag = (direction == SortDirection.UP);
         boolean cycleFlag;
@@ -56,7 +56,7 @@ public class ArrayService {
         } while (cycleFlag);
     }
 
-    public void bogoSort(@NotNull Array array,
+    public void bogoSort(@NotNull IntegerArray array,
                          @NotNull SortDirection direction) {
         ArrayValidador validador = new ArrayValidador();
         while (!validador.validateIsSorted(array, direction)) {
@@ -64,7 +64,7 @@ public class ArrayService {
         }
     }
 
-    private void shuffle(@NotNull Array array) {
+    private void shuffle(@NotNull IntegerArray array) {
         Random random = new Random();
         for (int i = 0; i < array.getLength(); i++) {
             int j = random.nextInt(array.getLength());
@@ -72,11 +72,11 @@ public class ArrayService {
         }
     }
 
-    public int binarySearch(@NotNull Array array, int searchValue)
+    public int binarySearch(@NotNull IntegerArray array, int searchValue)
             throws ArrayException {
         ArrayValidador validador = new ArrayValidador();
         if (!validador.validateIsSorted(array, SortDirection.UP)) {
-            throw new ArrayException("Array is not sorted!");
+            throw new ArrayException("IntegerArray is not sorted!");
         }
         if (!validador.validateBinarySeachValue(array, searchValue)) {
             return -1;
@@ -97,15 +97,15 @@ public class ArrayService {
         return -1;
     }
 
-    public int minValue(@NotNull Array array) {
+    public int minValue(@NotNull IntegerArray array) {
         return array.minValue();
     }
 
-    public int maxValue(@NotNull Array array) {
+    public int maxValue(@NotNull IntegerArray array) {
         return array.maxValue();
     }
 
-    public List<Integer> simpleNumbers(@NotNull Array array) {
+    public List<Integer> simpleNumbers(@NotNull IntegerArray array) {
         ArrayList<Integer> simpleList = new ArrayList<>();
         for (int i = 0; i < array.getLength(); i++) {
             int element = array.getElement(i).get();
@@ -129,7 +129,7 @@ public class ArrayService {
         return count == 2;
     }
 
-    public List<Integer> fibonacciNumbers(Array array) {
+    public List<Integer> fibonacciNumbers(IntegerArray array) {
         ArrayList<Integer> fibonacciList = new ArrayList<>();
         for (int i = 0; i < array.getLength(); i++) {
             Integer temp = array.getElement(i).get();
@@ -159,7 +159,7 @@ public class ArrayService {
         return fibonacciSequence;
     }
 
-    public List<Integer> threeDifferentDigitNumbers(Array array) {
+    public List<Integer> threeDifferentDigitNumbers(IntegerArray array) {
         ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < array.getLength(); i++) {
             int value = array.getElement(i).get();

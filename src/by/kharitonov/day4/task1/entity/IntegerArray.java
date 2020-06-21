@@ -3,16 +3,22 @@ package by.kharitonov.day4.task1.entity;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class Array {
+public class IntegerArray {
     private int[] dataArray;
 
-    public Array(int size) {
+    public IntegerArray(int size) {
         dataArray = new int[size];
     }
 
-    public Array(int[] dataArray) {
+    public IntegerArray(int[] dataArray) {
         this.dataArray = new int[dataArray.length];
-        this.dataArray = Arrays.copyOf(dataArray, dataArray.length);
+        copy(dataArray);
+    }
+
+    private void copy(int[] dataArray) {
+        for (int i = 0; i < dataArray.length; i++) {
+            this.dataArray[i] = dataArray[i];
+        }
     }
 
     public int getLength() {
@@ -66,8 +72,8 @@ public class Array {
         return dataArray[min];
     }
 
-    public Array copy() {
-        return new Array(dataArray);
+    public IntegerArray copy() {
+        return new IntegerArray(dataArray);
     }
 
     @Override
@@ -78,7 +84,7 @@ public class Array {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        Array array1 = (Array) o;
+        IntegerArray array1 = (IntegerArray) o;
         if (dataArray.length != array1.getLength()) {
             return false;
         }
@@ -92,7 +98,7 @@ public class Array {
 
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("Array{");
+        final StringBuilder sb = new StringBuilder("IntegerArray{");
         for (int i = 0; i < dataArray.length - 1; i++) {
             sb.append(dataArray[i]).append(",");
         }
