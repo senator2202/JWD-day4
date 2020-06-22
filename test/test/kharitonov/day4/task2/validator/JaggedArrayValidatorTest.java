@@ -1,5 +1,6 @@
 package test.kharitonov.day4.task2.validator;
 
+import by.kharitonov.day4.task2.entity.SortType;
 import by.kharitonov.day4.task2.validator.JaggedArrayValidator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
@@ -15,16 +16,18 @@ public class JaggedArrayValidatorTest {
     public Object[][] dataValidateJaggedArray() {
         return new Object[][]{
 
-                {null, false},
-                {jaggedArray(), true},
-                {badJaggedArray(), false}
+                {null, SortType.DECREASING_MAX, false},
+                {jaggedArray(), SortType.DECREASING_MIN, true},
+                {badJaggedArray(), SortType.INCREASING_SUM, false},
+                {jaggedArray(), null, false}
         };
     }
 
-    @Parameters({"jaggedArray", "expectedResult"})
+    @Parameters({"jaggedArray", "sortType", "expectedResult"})
     @Test(dataProvider = "dataValidateJaggedArray")
-    public void testValidateJaggedArray(int[][] jArray, boolean expected) {
-        boolean actual = validator.validateJaggedArray(jArray);
+    public void testValidateJaggedArray(int[][] jArray, SortType sortType,
+                                        boolean expected) {
+        boolean actual = validator.validateSortingParameters(jArray, sortType);
         assertEquals(actual, expected);
     }
 

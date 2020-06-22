@@ -4,11 +4,11 @@ import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task2.entity.PeakType;
 import by.kharitonov.day4.task2.entity.SortType;
 import by.kharitonov.day4.task2.validator.JaggedArrayValidator;
-import org.jetbrains.annotations.NotNull;
 
 public class JaggedArrayService {
-    public boolean generalSorting(int[][] jArray, @NotNull SortType sortType) {
-        if (!new JaggedArrayValidator().validateJaggedArray(jArray)) {
+    public boolean generalSorting(int[][] jArray, SortType sortType) {
+        if (!new JaggedArrayValidator().
+                validateSortingParameters(jArray, sortType)) {
             return false;
         }
         boolean cycleFlag;

@@ -39,4 +39,9 @@ public class ArrayValidator {
         return (searchValue >= array.getFirst() &&
                 searchValue <= array.getLast());
     }
+
+    public boolean validateSortParametres(IntegerArray array,
+                                          SortDirection direction) {
+        return array != null && direction != null;
+    }
 }

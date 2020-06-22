@@ -11,15 +11,18 @@ import java.util.List;
 import java.util.Random;
 
 public class ArrayService {
-    public void selectionSort(@NotNull IntegerArray array,
-                              @NotNull SortDirection direction) {
+    public void selectionSort(IntegerArray array, SortDirection direction) {
+        ArrayValidator validator = new ArrayValidator();
+        if (!validator.validateSortParametres(array, direction)) {
+            return;
+        }
         boolean sortFlag = (direction == SortDirection.UP);
         int temp;
         for (int i = 0; i < array.getLength(); i++) {
             temp = i;
             for (int j = i + 1; j < array.getLength(); j++) {
                 if (array.getElement(j).get() <
-                        array.getElement(temp).get() == sortFlag) {//!XOR
+                        array.getElement(temp).get() == sortFlag) {
                     temp = j;
                 }
             }
@@ -29,15 +32,18 @@ public class ArrayService {
         }
     }
 
-    private void swap(@NotNull IntegerArray array, int index1, int index2) {
+    private void swap(IntegerArray array, int index1, int index2) {
         int value1 = array.getElement(index1).get();
         int value2 = array.getElement(index2).get();
         array.setElement(index1, value2);
         array.setElement(index2, value1);
     }
 
-    public void bubbleSort(@NotNull IntegerArray array,
-                           @NotNull SortDirection direction) {
+    public void bubbleSort(IntegerArray array, SortDirection direction) {
+        ArrayValidator validator = new ArrayValidator();
+        if (!validator.validateSortParametres(array, direction)) {
+            return;
+        }
         boolean sortFlag = (direction == SortDirection.UP);
         boolean cycleFlag;
         do {
@@ -52,15 +58,17 @@ public class ArrayService {
         } while (cycleFlag);
     }
 
-    public void stupidSort(@NotNull IntegerArray array,
-                           @NotNull SortDirection direction) {
+    public void stupidSort(IntegerArray array, SortDirection direction) {
         ArrayValidator validator = new ArrayValidator();
+        if (!validator.validateSortParametres(array, direction)) {
+            return;
+        }
         while (!validator.validateIsSorted(array, direction)) {
             shuffle(array);
         }
     }
 
-    private void shuffle(@NotNull IntegerArray array) {
+    private void shuffle(IntegerArray array) {
         Random random = new Random();
         for (int i = 0; i < array.getLength(); i++) {
             int j = random.nextInt(array.getLength());
@@ -68,7 +76,7 @@ public class ArrayService {
         }
     }
 
-    public int binarySearch(@NotNull IntegerArray array, int searchValue)
+    public int binarySearch(IntegerArray array, int searchValue)
             throws ArrayException {
         ArrayValidator validator = new ArrayValidator();
         if (!validator.validateIsSorted(array, SortDirection.UP)) {

@@ -2,7 +2,6 @@ package by.kharitonov.day4.task1.entity;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.Optional;
 
 public class IntegerArray {
@@ -79,6 +78,18 @@ public class IntegerArray {
         return new IntegerArray(dataArray);
     }
 
+    private boolean equalsTo(IntegerArray array) {
+        if (dataArray.length != array.getLength()) {
+            return false;
+        }
+        for (int i = 0; i < dataArray.length; i++) {
+            if (dataArray[i] != array.getElement(i).get()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -87,16 +98,19 @@ public class IntegerArray {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        IntegerArray array1 = (IntegerArray) o;
-        if (dataArray.length != array1.getLength()) {
-            return false;
-        }
-        return Arrays.equals(dataArray, array1.dataArray);
+        IntegerArray integerArray = (IntegerArray) o;
+        return equalsTo(integerArray);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(dataArray);
+        int result;
+        long temp;
+        temp = Double.doubleToLongBits((double) dataArray.length +
+                getFirst() + getLast());
+        result = (int) (temp ^ (temp >>> 32));
+        result = 31 * result + dataArray.hashCode();
+        return result;
     }
 
     @Override
