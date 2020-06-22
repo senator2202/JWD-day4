@@ -8,6 +8,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertEquals;
 import static org.testng.FileAssert.fail;
 
 public class ArrayParserTest {
@@ -30,7 +31,7 @@ public class ArrayParserTest {
         expected.setElement(4, -666);
         expected.setElement(5, 1);
         expected.setElement(6, -22);
-        Assert.assertEquals(actual, expected);
+        assertEquals(actual, expected);
     }
 
     @DataProvider(name = "dataParseArrayException")
