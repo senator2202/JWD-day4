@@ -64,6 +64,13 @@ public class ArrayServiceTest {
         assertEquals(sourceArray, expectedArray);
     }
 
+    @Test
+    public void testSelectionSortReturn() {
+        IntegerArray array = testArray.copy();
+        arrayService.selectionSort(array, null);
+        assertEquals(array,testArray);
+    }
+
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
     @Test(dataProvider = "dataForSort")
     public void testBubbleSort(IntegerArray sourceArray,
@@ -73,6 +80,13 @@ public class ArrayServiceTest {
         assertEquals(sourceArray, expectedArray);
     }
 
+    @Test
+    public void testBubbleSortReturn() {
+        IntegerArray array = testArray.copy();
+        arrayService.bubbleSort(array, null);
+        assertEquals(array,testArray);
+    }
+
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
     @Test(dataProvider = "dataForSort")
     public void testStupidSort(IntegerArray sourceArray,
@@ -80,6 +94,13 @@ public class ArrayServiceTest {
                                IntegerArray expectedArray) {
         arrayService.stupidSort(sourceArray, sortDirection);
         assertEquals(sourceArray, expectedArray);
+    }
+
+    @Test
+    public void testStupidSortReturn() {
+        IntegerArray array = testArray.copy();
+        arrayService.stupidSort(array, null);
+        assertEquals(array,testArray);
     }
 
     @DataProvider(name = "dataForTestBinarySearch")

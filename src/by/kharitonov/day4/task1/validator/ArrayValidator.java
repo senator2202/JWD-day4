@@ -40,7 +40,7 @@ public class ArrayValidator {
                 searchValue <= array.getLast());
     }
 
-    public boolean validateSortParametres(IntegerArray array,
+    public boolean validateSortParameters(IntegerArray array,
                                           SortDirection direction) {
         return array != null && direction != null;
     }

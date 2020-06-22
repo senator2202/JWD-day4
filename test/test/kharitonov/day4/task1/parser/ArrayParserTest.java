@@ -4,6 +4,8 @@ import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.exception.ArrayException;
 import by.kharitonov.day4.task1.parser.ArrayParser;
 import org.testng.Assert;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static org.testng.FileAssert.fail;
@@ -31,9 +33,19 @@ public class ArrayParserTest {
         Assert.assertEquals(actual, expected);
     }
 
-    @Test(expectedExceptions = ArrayException.class)
-    public void testParseArrayException() throws ArrayException {
-        String[] data = {"7", "100Ulala 255 -99 755 -666 1 -22"};
+    @DataProvider(name = "dataParseArrayException")
+    @Test
+    public Object[][] dataParseArrayException() {
+        return new Object[][]{
+                {new String[]{"7", "100Ulala 255 -99 755 -666 1 -22"}},
+                {new String[]{"Ulala7", "100 255 -99 755 -666 1 -22"}}
+        };
+    }
+
+    @Parameters("data")
+    @Test(expectedExceptions = ArrayException.class,
+            dataProvider = "dataParseArrayException")
+    public void testParseArrayException(String[] data) throws ArrayException {
         arrayParser.parseArray(data);
     }
 }

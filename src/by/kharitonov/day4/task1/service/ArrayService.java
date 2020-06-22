@@ -13,7 +13,7 @@ import java.util.Random;
 public class ArrayService {
     public void selectionSort(IntegerArray array, SortDirection direction) {
         ArrayValidator validator = new ArrayValidator();
-        if (!validator.validateSortParametres(array, direction)) {
+        if (!validator.validateSortParameters(array, direction)) {
             return;
         }
         boolean sortFlag = (direction == SortDirection.UP);
@@ -41,7 +41,7 @@ public class ArrayService {
 
     public void bubbleSort(IntegerArray array, SortDirection direction) {
         ArrayValidator validator = new ArrayValidator();
-        if (!validator.validateSortParametres(array, direction)) {
+        if (!validator.validateSortParameters(array, direction)) {
             return;
         }
         boolean sortFlag = (direction == SortDirection.UP);
@@ -60,7 +60,7 @@ public class ArrayService {
 
     public void stupidSort(IntegerArray array, SortDirection direction) {
         ArrayValidator validator = new ArrayValidator();
-        if (!validator.validateSortParametres(array, direction)) {
+        if (!validator.validateSortParameters(array, direction)) {
             return;
         }
         while (!validator.validateIsSorted(array, direction)) {
