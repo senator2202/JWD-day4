@@ -4,9 +4,10 @@ import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task2.entity.PeakType;
 import by.kharitonov.day4.task2.entity.SortType;
 import by.kharitonov.day4.task2.validator.JaggedArrayValidator;
+import org.jetbrains.annotations.NotNull;
 
 public class JaggedArrayService {
-    public boolean generalSorting(int[][] jArray, SortType sortType) {
+    public boolean generalSorting(int[][] jArray, @NotNull SortType sortType) {
         if (!new JaggedArrayValidator().validateJaggedArray(jArray)) {
             return false;
         }
@@ -32,7 +33,7 @@ public class JaggedArrayService {
         } else {
             int peak2 = peakRowElement(row2, sortType.getPeakType());
             int peak1 = peakRowElement(row1, sortType.getPeakType());
-            return peak2 != peak1 && peak2 < peak1 == sortFlag;
+            return (peak2 != peak1) && (peak2 < peak1 == sortFlag);
         }
     }
 
