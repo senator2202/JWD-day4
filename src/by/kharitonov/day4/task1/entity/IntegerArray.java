@@ -1,5 +1,7 @@
 package by.kharitonov.day4.task1.entity;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -7,10 +9,11 @@ public class IntegerArray {
     private final int[] dataArray;
 
     public IntegerArray(int size) {
+        size = size > 1 ? size : 1;
         dataArray = new int[size];
     }
 
-    public IntegerArray(int[] dataArray) {
+    public IntegerArray(@NotNull int[] dataArray) {
         this.dataArray = new int[dataArray.length];
         copy(dataArray);
     }

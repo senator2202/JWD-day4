@@ -27,23 +27,23 @@ public class ArrayServiceTest {
         testArray.setElement(1, 199);
         testArray.setElement(2, -3);
         testArray.setElement(3, 0);
-        testArray.setElement(4, -18);
+        testArray.setElement(4, 18);
         testArray.setElement(5, 23);
         testArray.setElement(6, -15);
-        sortedUpArray.setElement(0, -18);
-        sortedUpArray.setElement(1, -15);
-        sortedUpArray.setElement(2, -3);
-        sortedUpArray.setElement(3, 0);
-        sortedUpArray.setElement(4, 2);
+        sortedUpArray.setElement(0, -15);
+        sortedUpArray.setElement(1, -3);
+        sortedUpArray.setElement(2, 0);
+        sortedUpArray.setElement(3, 2);
+        sortedUpArray.setElement(4, 18);
         sortedUpArray.setElement(5, 23);
         sortedUpArray.setElement(6, 199);
         sortedDownArray.setElement(0, 199);
         sortedDownArray.setElement(1, 23);
-        sortedDownArray.setElement(2, 2);
-        sortedDownArray.setElement(3, 0);
-        sortedDownArray.setElement(4, -3);
-        sortedDownArray.setElement(5, -15);
-        sortedDownArray.setElement(6, -18);
+        sortedDownArray.setElement(2, 18);
+        sortedDownArray.setElement(3, 2);
+        sortedDownArray.setElement(4, 0);
+        sortedDownArray.setElement(5, -3);
+        sortedDownArray.setElement(6, -15);
     }
 
     @DataProvider(name = "dataForSort")
@@ -76,8 +76,8 @@ public class ArrayServiceTest {
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
     @Test(dataProvider = "dataForSort")
     public void testStupidSort(IntegerArray sourceArray,
-                             SortDirection sortDirection,
-                             IntegerArray expectedArray) {
+                               SortDirection sortDirection,
+                               IntegerArray expectedArray) {
         arrayService.stupidSort(sourceArray, sortDirection);
         assertEquals(sourceArray, expectedArray);
     }
@@ -86,8 +86,8 @@ public class ArrayServiceTest {
     @Test
     public Object[][] dataForTestBinarySearch() {
         return new Object[][]{
-                {sortedUpArray, -18, 0},
-                {sortedUpArray, -3, 2},
+                {sortedUpArray, 18, 4},
+                {sortedUpArray, -3, 1},
                 {sortedUpArray, 199, 6},
                 {sortedUpArray, 100, -1},
                 {sortedUpArray, -100, -1}
@@ -126,7 +126,7 @@ public class ArrayServiceTest {
     @Test
     public void testMinValue() {
         int actual = arrayService.minValue(testArray);
-        assertEquals(actual, -18);
+        assertEquals(actual, -15);
     }
 
     @Test

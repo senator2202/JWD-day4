@@ -29,22 +29,44 @@ public class ArrayFillerTest {
     @Test
     public Object[][] dataForRandomFill() {
         return new Object[][]{
-                {1000, false},
-                {250, true},
-                {-1234, false},
-                {0, false},
-                {999, true},
+                {null, 23, false},
+                {null, -2, false},
+                {testArray, 1000, false},
+                {testArray, 250, true},
+                {testArray, -1234, false},
+                {testArray, 0, false},
+                {testArray, 999, true},
         };
     }
 
-    @Parameters("highBound")
+    @Parameters({"integerArray", "bound", "expected"})
     @Test(dataProvider = "dataForRandomFill")
-    public void testRandomFill(int bound, boolean expected) {
-        IntegerArray array = new IntegerArray(25);
+    public void testRandomFill(IntegerArray array, int bound,
+                               boolean expected) {
         boolean actual = arrayFiller.randomFill(array, bound);
         assertEquals(actual, expected);
     }
 
+    @Test
+    public void testConsoleFill() {
+        IntegerArray array = new IntegerArray(5);
+        InputStream sysInBackup = System.in;
+        String data = "100" + System.lineSeparator() +
+                "255" + System.lineSeparator() +
+                "-99" + System.lineSeparator() +
+                "755" + System.lineSeparator() +
+                "-666" + System.lineSeparator();
+        ByteArrayInputStream in =
+                new ByteArrayInputStream(data.getBytes());
+        System.setIn(in);
+        try {
+            arrayFiller.consoleFill(array, 800, in);
+        } catch (ArrayException e) {
+            fail();
+        }
+        System.setIn(sysInBackup);
+        assertEquals(array, testArray);
+    }
 
     @Test
     public void testConsoleFillTrue() {
@@ -58,7 +80,12 @@ public class ArrayFillerTest {
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
-        boolean actual = arrayFiller.consoleFill(array, 900, in);
+        boolean actual = false;
+        try {
+            actual = arrayFiller.consoleFill(array, 900, in);
+        } catch (ArrayException e) {
+            fail();
+        }
         System.setIn(sysInBackup);
         assertTrue(actual);
     }
@@ -75,16 +102,21 @@ public class ArrayFillerTest {
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
-        boolean actual = arrayFiller.consoleFill(array, 1000, in);
+        boolean actual = false;
+        try {
+            actual = arrayFiller.consoleFill(array, 1000, in);
+        } catch (ArrayException e) {
+            fail();
+        }
         System.setIn(sysInBackup);
         assertFalse(actual);
     }
 
-    @Test
-    public void testConsoleFill() {
+    @Test(expectedExceptions = ArrayException.class)
+    public void testConsoleFillException() throws ArrayException {
         IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
-        String data = "100" + System.lineSeparator() +
+        String data = "100UlaUlala" + System.lineSeparator() +
                 "255" + System.lineSeparator() +
                 "-99" + System.lineSeparator() +
                 "755" + System.lineSeparator() +
@@ -92,9 +124,7 @@ public class ArrayFillerTest {
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
-        arrayFiller.consoleFill(array, 800, in);
-        System.setIn(sysInBackup);
-        assertEquals(array, testArray);
+        arrayFiller.consoleFill(array, 255, in);
     }
 
     @Test
@@ -108,12 +138,35 @@ public class ArrayFillerTest {
         }
     }
 
+    @DataProvider(name = "dataFileFillFalse")
+    @Test
+    public Object[][] dataFileFillFalse() {
+        return new Object[][]{
+                {null, null},
+                {null, ""},
+                {testArray, ""},
+                {new IntegerArray(4), null}
+        };
+    }
+
+    @Parameters({"array", "fileName"})
+    @Test(dataProvider = "dataFileFillFalse")
+    public void testFileFillFalse(IntegerArray array, String fileName) {
+        try {
+            boolean actual = arrayFiller.fileFill(array, fileName);
+            assertFalse(actual);
+        } catch (ArrayException e) {
+            fail();
+        }
+    }
+
     @DataProvider(name = "dataForFileFillException")
     @Test
     public Object[][] dataForFileFillException() {
         return new Object[][]{
-                {5, "WrongFile.txt"},
-                {5, "WrongArray.txt"}
+                {5, "NotExistingFile.txt"},
+                {5, "IncompleteArray.txt"},
+                {5, "InvalidArray.txt"}
         };
     }
 

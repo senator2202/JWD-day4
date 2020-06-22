@@ -48,14 +48,15 @@ public class ArrayValidatorTest {
         IntegerArray array = new IntegerArray(5);
         array.setElement(0, 25);
         return new Object[][]{
-                {array, true, new int[]{0,4}},
+                {array, true, new int[]{0, 4}},
                 {array, false, new int[]{-1, 3}},
-                {array, false, new int[] {2, 3, 5}},
-                {array, true, new int[] {0, 1, 2, 4}}
+                {array, false, new int[]{2, 3, 5}},
+                {array, true, new int[]{0, 1, 2, 4}},
+                {array, false, null}
         };
     }
 
-    @Parameters({"array", "expected", "indexes"})
+    @Parameters({"integerArray", "expected", "indexes"})
     @Test(dataProvider = "dataForValidateIndexes")
     public void testValidateIndexes(IntegerArray array, boolean expected,
                                     int[] indexes) {
@@ -72,16 +73,41 @@ public class ArrayValidatorTest {
                 {sortedDownArray, SortDirection.DOWN, true},
                 {sortedUpArray, SortDirection.DOWN, false},
                 {sortedDownArray, SortDirection.UP, false},
-                {testArray, SortDirection.DOWN, false}
+                {testArray, SortDirection.DOWN, false},
+                {null, null, false},
+                {testArray, null, false},
+                {null, SortDirection.UP, false}
         };
     }
 
-    @Parameters({"array", "sortDirection", "expected"})
+    @Parameters({"integerArray", "sortDirection", "expected"})
     @Test(dataProvider = "dataForValidateIsSorted")
     public void testValidateIsSorted(IntegerArray array,
                                      SortDirection sortDirection,
                                      boolean expected) {
         boolean actual = arrayValidator.validateIsSorted(array, sortDirection);
+        assertEquals(actual, expected);
+    }
+
+    @DataProvider(name = "dataBalidateBinarySearchValue")
+    @Test
+    public Object[][] dataBalidateBinarySearchValue() {
+        return new Object[][]{
+                {testArray, 24, false},
+                {sortedUpArray, -9999, false},
+                {sortedUpArray, 9999, false},
+                {sortedUpArray, 10, true},
+                {null, 2, false}
+        };
+    }
+
+    @Parameters({"integerArray", "value", "expected"})
+    @Test(dataProvider = "dataBalidateBinarySearchValue")
+    public void testValidateBinarySearchValue(IntegerArray array,
+                                              int searchValue,
+                                              boolean expected) {
+        boolean actual = arrayValidator.validateBinarySearchValue(array,
+                searchValue);
         assertEquals(actual, expected);
     }
 }

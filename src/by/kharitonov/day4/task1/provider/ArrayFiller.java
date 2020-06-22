@@ -3,20 +3,20 @@ package by.kharitonov.day4.task1.provider;
 import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.exception.ArrayException;
 import by.kharitonov.day4.task1.parser.ArrayParser;
-import org.jetbrains.annotations.NotNull;
+import by.kharitonov.day4.task1.validator.ArrayFillerValidator;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
 public class ArrayFiller {
-    private static final int MAX_BOUND = 999;
-
-    public boolean randomFill(@NotNull IntegerArray array, int bound) {
-        if (!inRange(bound)) {
+    public boolean randomFill(IntegerArray array, int bound) {
+        ArrayFillerValidator validator = new ArrayFillerValidator();
+        if (!validator.validateFillParameters(array, bound)) {
             return false;
         }
         Random random = new Random();
@@ -29,18 +29,20 @@ public class ArrayFiller {
         return true;
     }
 
-    private boolean inRange(int bound) {
-        return bound > 0 && bound <= MAX_BOUND;
-    }
-
-    public boolean consoleFill(@NotNull IntegerArray array, int bound,
-                               InputStream in) {
-        if (!inRange(bound)) {
+    public boolean consoleFill(IntegerArray array, int bound,
+                               InputStream in) throws ArrayException {
+        ArrayFillerValidator validator = new ArrayFillerValidator();
+        if (!validator.validateFillParameters(array, bound, in)) {
             return false;
         }
         Scanner scanner = new Scanner(in);
         for (int i = 0; i < array.getLength(); i++) {
-            int value = scanner.nextInt();
+            int value = 0;
+            try {
+                value = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                throw new ArrayException("All values must be integer!");
+            }
             if (value <= bound) {
                 array.setElement(i, value);
             }
@@ -48,30 +50,37 @@ public class ArrayFiller {
         return true;
     }
 
-    public void fileFill(@NotNull IntegerArray array,
-                         @NotNull String fileName)
+    public boolean fileFill(IntegerArray array, String fileName)
             throws ArrayException {
+        ArrayFillerValidator validator = new ArrayFillerValidator();
+        if (!validator.validateFillParameters(array, fileName)) {
+            return false;
+        }
         Path path = Paths.get(fileName);
-        try (Scanner scanner = new Scanner(path)) {
-            ArrayParser parser = new ArrayParser();
-            String[] data = new String[2];
-            IntegerArray filledArray;
-            scanner.useDelimiter(System.getProperty("line.separator"));
-            data[0] = scanner.next();
-            data[1] = scanner.next();
-            filledArray = parser.parseArray(data);
-            copy(filledArray, array);
+        Scanner scanner = null;
+        try {
+            scanner = new Scanner(path);
         } catch (IOException e) {
             throw new ArrayException("Wrong file name!");
         }
+        ArrayParser parser = new ArrayParser();
+        String[] data = new String[2];
+        IntegerArray filledArray;
+        scanner.useDelimiter(System.getProperty("line.separator"));
+        try {
+            data[0] = scanner.next();
+            data[1] = scanner.next();
+        } catch (Exception e) {
+            throw new ArrayException("Not enough data!");
+        }
+        filledArray = parser.parseArray(data);
+        copy(filledArray, array);
+        return true;
     }
 
-    private void copy(IntegerArray source, IntegerArray destination)
-            throws ArrayException {
-        if (source.getLength() != destination.getLength()) {
-            throw new ArrayException("Different array sizes!");
-        }
-        for (int i = 0; i < source.getLength(); i++) {
+    private void copy(IntegerArray source, IntegerArray destination) {
+        int length = Math.min(source.getLength(), destination.getLength());
+        for (int i = 0; i < length; i++) {
             int value = source.getElement(i).get();
             destination.setElement(i, value);
         }
