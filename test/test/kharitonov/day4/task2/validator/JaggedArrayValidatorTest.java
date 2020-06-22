@@ -7,8 +7,8 @@ import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class JaggedIntegerArrayValidatorTest {
-    JaggedArrayValidator validator = new JaggedArrayValidator();
+public class JaggedArrayValidatorTest {
+    private final JaggedArrayValidator validator = new JaggedArrayValidator();
 
     @DataProvider(name = "dataValidateJaggedArray")
     @Test

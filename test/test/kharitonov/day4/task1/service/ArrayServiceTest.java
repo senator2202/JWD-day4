@@ -14,7 +14,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
 public class ArrayServiceTest {
-    ArrayService arrayService = new ArrayService();
+    private final ArrayService arrayService = new ArrayService();
     private final IntegerArray testArray;
     private final IntegerArray sortedUpArray;
     private final IntegerArray sortedDownArray;
@@ -75,10 +75,10 @@ public class ArrayServiceTest {
 
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
     @Test(dataProvider = "dataForSort")
-    public void testBogoSort(IntegerArray sourceArray,
+    public void testStupidSort(IntegerArray sourceArray,
                              SortDirection sortDirection,
                              IntegerArray expectedArray) {
-        arrayService.bogoSort(sourceArray, sortDirection);
+        arrayService.stupidSort(sourceArray, sortDirection);
         assertEquals(sourceArray, expectedArray);
     }
 

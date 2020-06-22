@@ -2,15 +2,15 @@ package test.kharitonov.day4.task1.validator;
 
 import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.entity.SortDirection;
-import by.kharitonov.day4.task1.validator.ArrayValidador;
+import by.kharitonov.day4.task1.validator.ArrayValidator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.assertEquals;
 
-public class ArrayValidadorTest {
-    private ArrayValidador arrayValidador = new ArrayValidador();
+public class ArrayValidatorTest {
+    private final ArrayValidator arrayValidator = new ArrayValidator();
     private final IntegerArray testArray;
     private final IntegerArray sortedUpArray;
     private final IntegerArray sortedDownArray;
@@ -48,10 +48,10 @@ public class ArrayValidadorTest {
         IntegerArray array = new IntegerArray(5);
         array.setElement(0, 25);
         return new Object[][]{
-                {array, true, 0, 4},
-                {array, false, -1, 3},
-                {array, false, 2, 3, 5},
-                {array, true, 0, 1, 2, 4},
+                {array, true, new int[]{0,4}},
+                {array, false, new int[]{-1, 3}},
+                {array, false, new int[] {2, 3, 5}},
+                {array, true, new int[] {0, 1, 2, 4}}
         };
     }
 
@@ -59,7 +59,7 @@ public class ArrayValidadorTest {
     @Test(dataProvider = "dataForValidateIndexes")
     public void testValidateIndexes(IntegerArray array, boolean expected,
                                     int[] indexes) {
-        boolean actual = arrayValidador.validateIndexes(array, indexes);
+        boolean actual = arrayValidator.validateIndexes(array, indexes);
         assertEquals(actual, expected);
     }
 
@@ -81,7 +81,7 @@ public class ArrayValidadorTest {
     public void testValidateIsSorted(IntegerArray array,
                                      SortDirection sortDirection,
                                      boolean expected) {
-        boolean actual = arrayValidador.validateIsSorted(array, sortDirection);
+        boolean actual = arrayValidator.validateIsSorted(array, sortDirection);
         assertEquals(actual, expected);
     }
 }

@@ -48,10 +48,10 @@ public class IntegerArrayTest {
     @Test
     public Object[][] dataForGetElement() {
         return new Object[][]{
-                {-1, Optional.ofNullable(null)},
+                {-1, Optional.empty()},
                 {0, Optional.of(1)},
                 {4, Optional.of(23)},
-                {25, Optional.ofNullable(null)}
+                {25, Optional.empty()}
         };
     }
 

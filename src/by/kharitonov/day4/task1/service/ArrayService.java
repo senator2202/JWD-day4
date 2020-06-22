@@ -3,7 +3,7 @@ package by.kharitonov.day4.task1.service;
 import by.kharitonov.day4.task1.entity.IntegerArray;
 import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task1.exception.ArrayException;
-import by.kharitonov.day4.task1.validator.ArrayValidador;
+import by.kharitonov.day4.task1.validator.ArrayValidator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -18,8 +18,8 @@ public class ArrayService {
         for (int i = 0; i < array.getLength(); i++) {
             temp = i;
             for (int j = i + 1; j < array.getLength(); j++) {
-                if (!(array.getElement(j).get() <
-                        array.getElement(temp).get() ^ sortFlag)) {//!XOR
+                if (array.getElement(j).get() <
+                        array.getElement(temp).get() == sortFlag) {//!XOR
                     temp = j;
                 }
             }
@@ -29,15 +29,11 @@ public class ArrayService {
         }
     }
 
-    private boolean swap(@NotNull IntegerArray array, int index1, int index2) {
-        if (!new ArrayValidador().validateIndexes(array, index1, index2)) {
-            return false;
-        }
+    private void swap(@NotNull IntegerArray array, int index1, int index2) {
         int value1 = array.getElement(index1).get();
         int value2 = array.getElement(index2).get();
         array.setElement(index1, value2);
         array.setElement(index2, value1);
-        return true;
     }
 
     public void bubbleSort(@NotNull IntegerArray array,
@@ -47,8 +43,8 @@ public class ArrayService {
         do {
             cycleFlag = false;
             for (int i = 0; i < array.getLength() - 1; i++) {
-                if (!(array.getElement(i+1).get() <
-                        array.getElement(i ).get() ^ sortFlag)) {
+                if (array.getElement(i + 1).get() <
+                        array.getElement(i).get() == sortFlag) {
                     swap(array, i, i + 1);
                     cycleFlag = true;
                 }
@@ -56,10 +52,10 @@ public class ArrayService {
         } while (cycleFlag);
     }
 
-    public void bogoSort(@NotNull IntegerArray array,
-                         @NotNull SortDirection direction) {
-        ArrayValidador validador = new ArrayValidador();
-        while (!validador.validateIsSorted(array, direction)) {
+    public void stupidSort(@NotNull IntegerArray array,
+                           @NotNull SortDirection direction) {
+        ArrayValidator validator = new ArrayValidator();
+        while (!validator.validateIsSorted(array, direction)) {
             shuffle(array);
         }
     }
@@ -74,11 +70,11 @@ public class ArrayService {
 
     public int binarySearch(@NotNull IntegerArray array, int searchValue)
             throws ArrayException {
-        ArrayValidador validador = new ArrayValidador();
-        if (!validador.validateIsSorted(array, SortDirection.UP)) {
+        ArrayValidator validator = new ArrayValidator();
+        if (!validator.validateIsSorted(array, SortDirection.UP)) {
             throw new ArrayException("IntegerArray is not sorted!");
         }
-        if (!validador.validateBinarySeachValue(array, searchValue)) {
+        if (!validator.validateBinarySearchValue(array, searchValue)) {
             return -1;
         }
         int firstIndex = 0;
@@ -150,7 +146,7 @@ public class ArrayService {
         int sum = 1;
         int sign = number > 0 ? 1 : -1;
         fibonacciSequence.add(0);
-        fibonacciSequence.add(1 * sign);
+        fibonacciSequence.add(sign);
         for (int i = 2; sum < Math.abs(number); i++) {
             sum = Math.abs(fibonacciSequence.get(i - 2) +
                     fibonacciSequence.get(i - 1));

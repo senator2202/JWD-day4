@@ -6,7 +6,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class ArrayParserTest {
-    private ArrayParser arrayParser = new ArrayParser();
+    private final ArrayParser arrayParser = new ArrayParser();
 
     @Test
     public void testParseArray() {

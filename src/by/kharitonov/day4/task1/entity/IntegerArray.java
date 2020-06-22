@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Optional;
 
 public class IntegerArray {
-    private int[] dataArray;
+    private final int[] dataArray;
 
     public IntegerArray(int size) {
         dataArray = new int[size];
@@ -39,7 +39,7 @@ public class IntegerArray {
 
     public Optional<Integer> getElement(int index) {
         if (!inRange(index)) {
-            return Optional.ofNullable(null);
+            return Optional.empty();
         }
         return Optional.of(dataArray[index]);
     }

@@ -2,6 +2,7 @@ package test.kharitonov.day4.task2.service;
 
 import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task2.entity.PeakType;
+import by.kharitonov.day4.task2.entity.SortType;
 import by.kharitonov.day4.task2.service.JaggedArrayService;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
@@ -10,82 +11,59 @@ import org.testng.annotations.Test;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class JaggedIntegerArrayServiceTest {
-    JaggedArrayService service = new JaggedArrayService();
+public class JaggedArrayServiceTest {
+    private final JaggedArrayService service = new JaggedArrayService();
 
-    @DataProvider(name = "dataForSortRowsSumItems")
+    @DataProvider(name = "dataGeneralSorting")
     @Test
-    public Object[][] dataForSortRowsSumItems() {
-        return new Object[][]{
-                {jaggedArray(), SortDirection.UP,
-                        jaggedArraySortedUpSumItems()},
-                {jaggedArray(), SortDirection.DOWN,
-                        jaggedArraySortedDownSumItems()},
-                {jaggedArraySortedDownSumItems(), SortDirection.UP,
-                        jaggedArraySortedUpSumItems()},
-                {jaggedArraySortedUpSumItems(), SortDirection.DOWN,
-                        jaggedArraySortedDownSumItems()}
-        };
-    }
-
-    @Parameters({"sourceJArray", "sortDirection", "expectedJArray"})
-    @Test(dataProvider = "dataForSortRowsSumItems",
-            groups = "rowsSumItems", priority = 1)
-    public void testSortRowsSumItems(int[][] jArray,
-                                     SortDirection direction,
-                                     int[][] expectedJArray) {
-        boolean equals;
-        service.sortRowsBySumItems(jArray, direction);
-        equals = jaggedArraysEquals(jArray, expectedJArray);
-        assertTrue(equals);
-    }
-
-    @DataProvider(name = "dataSortRowsSumItemsBoolean")
-    @Test
-    public Object[][] dataSortRowsSumItemsBoolean() {
-        return new Object[][]{
-                {jaggedArray(), true},
-                {null, false},
-                {badJaggedArray(), false}
-        };
-    }
-
-    @Parameters({"jaggedArray", "expectedResult"})
-    @Test(groups = "rowsSumItems", priority = 2,
-            dataProvider = "dataSortRowsSumItemsBoolean")
-    public void testSortRowsSumItemsBoolean(int[][] jArray, boolean expected) {
-        boolean actual = service.sortRowsBySumItems(jArray, SortDirection.UP);
-        assertEquals(actual, expected);
-    }
-
-    @DataProvider(name = "dataSortRowsPeakElement")
-    @Test
-    public Object[][] dataSortRowsPeakElement() {
-        PeakType MAX = PeakType.MAX;
-        PeakType MIN = PeakType.MIN;
+    public Object[][] dataGeneralSorting() {
+        PeakType max = PeakType.MAX;
+        PeakType min = PeakType.MIN;
         SortDirection up = SortDirection.UP;
         SortDirection down = SortDirection.DOWN;
         return new Object[][]{
-                {jaggedArray(), MAX, up,
-                        jaggedArraySortedPeakElement(MAX, up)},
-                {jaggedArray(), MAX, down,
-                        jaggedArraySortedPeakElement(MAX, down)},
-                {jaggedArray(), MIN, up,
-                        jaggedArraySortedPeakElement(MIN, up)},
-                {jaggedArray(), MIN, down,
-                        jaggedArraySortedPeakElement(MIN, down)}
+                {jaggedArray(), SortType.INCREASING_SUM,
+                        jaggedArraySortedUpSumItems()},
+                {jaggedArray(), SortType.DECREASING_SUM,
+                        jaggedArraySortedDownSumItems()},
+                {jaggedArray(), SortType.INCREASING_MAX,
+                        jaggedArraySortedPeakElement(max, up)},
+                {jaggedArray(), SortType.DECREASING_MAX,
+                        jaggedArraySortedPeakElement(max, down)},
+                {jaggedArray(), SortType.INCREASING_MIN,
+                        jaggedArraySortedPeakElement(min, up)},
+                {jaggedArray(), SortType.DECREASING_MIN,
+                        jaggedArraySortedPeakElement(min, down)}
         };
     }
 
-    @Parameters({"sourceJArray", "peakType", "sortDirection", "expectedJArray"})
-    @Test(dataProvider = "dataSortRowsPeakElement")
-    public void testSortRowsPeakElement(int[][] jArray, PeakType peakType,
-                                        SortDirection sortDirection,
-                                        int[][] expectedJArray) {
+    @Parameters({"jaggedArray", "sortType", "expectedJArray"})
+    @Test(dataProvider = "dataGeneralSorting")
+    public void testGeneralSorting(int[][] jArray, SortType sortType,
+                                   int[][] expectedJArray) {
         boolean equals;
-        service.sortRowsByPeakElement(jArray, peakType, sortDirection);
+        service.generalSorting(jArray, sortType);
         equals = jaggedArraysEquals(jArray, expectedJArray);
         assertTrue(equals);
+    }
+
+    @DataProvider(name = "dataGeneralSortingBoolean")
+    @Test
+    public Object[][] dataGeneralSortingBoolean() {
+        return new Object[][]{
+                {jaggedArray(), SortType.DECREASING_MIN, true},
+                {null, SortType.DECREASING_MAX, false},
+                {badJaggedArray(), SortType.INCREASING_MAX, false}
+        };
+    }
+
+    @Parameters({"jaggedArray", "sortType", "expectedResult"})
+    @Test(dataProvider = "dataGeneralSortingBoolean")
+    public void testGeneralSortingBoolean(int[][] jArray,
+                                          SortType sortType,
+                                          boolean expected) {
+        boolean actual = service.generalSorting(jArray, sortType);
+        assertEquals(actual, expected);
     }
 
     private int[][] jaggedArray() {

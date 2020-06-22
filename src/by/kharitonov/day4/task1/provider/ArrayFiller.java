@@ -48,8 +48,8 @@ public class ArrayFiller {
         return true;
     }
 
-    public boolean fileFill(@NotNull IntegerArray array,
-                            @NotNull String fileName)
+    public void fileFill(@NotNull IntegerArray array,
+                         @NotNull String fileName)
             throws ArrayException {
         Path path = Paths.get(fileName);
         try (Scanner scanner = new Scanner(path)) {
@@ -61,7 +61,6 @@ public class ArrayFiller {
             data[1] = scanner.next();
             filledArray = parser.parseArray(data);
             copy(filledArray, array);
-            return true;
         } catch (IOException e) {
             throw new ArrayException("Wrong file name!");
         }

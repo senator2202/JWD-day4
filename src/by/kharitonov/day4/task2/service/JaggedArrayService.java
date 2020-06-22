@@ -2,27 +2,38 @@ package by.kharitonov.day4.task2.service;
 
 import by.kharitonov.day4.task1.entity.SortDirection;
 import by.kharitonov.day4.task2.entity.PeakType;
+import by.kharitonov.day4.task2.entity.SortType;
 import by.kharitonov.day4.task2.validator.JaggedArrayValidator;
 
 public class JaggedArrayService {
-    public boolean sortRowsBySumItems(int[][] jArray, SortDirection direction) {
+    public boolean generalSorting(int[][] jArray, SortType sortType) {
         if (!new JaggedArrayValidator().validateJaggedArray(jArray)) {
             return false;
         }
-        boolean sortFlag = (direction == SortDirection.UP);
         boolean cycleFlag;
         do {
             cycleFlag = false;
             for (int i = 0; i < jArray.length - 1; i++) {
-                if (!(sumRowItems(jArray[i + 1]) <
-                        sumRowItems(jArray[i]) ^ sortFlag)) {
-                    swapRows(jArray, i, i + 1);
+                if (needToSwap(jArray[i + 1], jArray[i], sortType)) {
+                    swapRows(jArray, i + 1, i);
                     cycleFlag = true;
                 }
             }
         } while (cycleFlag);
-
         return true;
+    }
+
+    private boolean needToSwap(int[] row2, int[] row1, SortType sortType) {
+        boolean sortFlag = (sortType.getSortDirection() == SortDirection.UP);
+        if (sortType.getPeakType() == PeakType.NONE) {
+            int sum2 = sumRowItems(row2);
+            int sum1 = sumRowItems(row1);
+            return sum2 < sum1 == sortFlag;
+        } else {
+            int peak2 = peakRowElement(row2, sortType.getPeakType());
+            int peak1 = peakRowElement(row1, sortType.getPeakType());
+            return peak2 != peak1 && peak2 < peak1 == sortFlag;
+        }
     }
 
     private void swapRows(int[][] jArray, int row1, int row2) {
@@ -33,38 +44,17 @@ public class JaggedArrayService {
 
     private int sumRowItems(int[] row) {
         int sum = 0;
-        for (int i = 0; i < row.length; i++) {
-            sum += row[i];
+        for (int i : row) {
+            sum += i;
         }
         return sum;
-    }
-
-    public boolean sortRowsByPeakElement(int[][] jArray, PeakType peakType,
-                                         SortDirection direction) {
-        if (!new JaggedArrayValidator().validateJaggedArray(jArray)) {
-            return false;
-        }
-        boolean sortFlag = (direction == SortDirection.UP);
-        boolean cycleFlag;
-        do {
-            cycleFlag = false;
-            for (int i = 0; i < jArray.length - 1; i++) {
-                int peakPlus1 = peakRowElement(jArray[i + 1], peakType);
-                int peak = peakRowElement(jArray[i], peakType);
-                if (peakPlus1!=peak && !(peakPlus1 < peak ^ sortFlag)) {
-                    swapRows(jArray, i, i + 1);
-                    cycleFlag = true;
-                }
-            }
-        } while (cycleFlag);
-        return true;
     }
 
     private int peakRowElement(int[] row, PeakType peakType) {
         boolean peakFlag = (peakType == PeakType.MIN);
         int peak = 0;
         for (int i = 1; i < row.length; i++) {
-            if (!(row[i] < row[peak] ^ peakFlag)) {
+            if (row[i] < row[peak] == peakFlag) {
                 peak = i;
             }
         }
