@@ -46,47 +46,6 @@ public class ArrayServiceTest {
         sortedDownArray.setElement(6, -15);
     }
 
-    @DataProvider(name = "dataForTestBinarySearch")
-    @Test
-    public Object[][] dataForTestBinarySearch() {
-        return new Object[][]{
-                {sortedUpArray, 18, 4},
-                {sortedUpArray, -3, 1},
-                {sortedUpArray, 199, 6},
-                {sortedUpArray, 100, -1},
-                {sortedUpArray, -100, -1}
-        };
-    }
-
-    @Parameters({"array", "searchValue", "expected"})
-    @Test(dataProvider = "dataForTestBinarySearch")
-    public void testBinarySearch(IntegerArray array, int searchValue,
-                                 int expected) {
-        try {
-            int actual = arrayService.binarySearch(array, searchValue);
-            assertEquals(actual, expected);
-        } catch (ArrayException e) {
-            fail();
-        }
-    }
-
-    @DataProvider(name = "dataForTestBinarySearchException")
-    @Test
-    public Object[][] dataForTestBinarySearchException() {
-        return new Object[][]{
-                {testArray, -18},
-                {sortedDownArray, 222}
-        };
-    }
-
-    @Parameters({"array", "searchValue"})
-    @Test(dataProvider = "dataForTestBinarySearchException",
-            expectedExceptions = ArrayException.class)
-    public void testBinarySearchException(IntegerArray array, int searchValue)
-            throws ArrayException {
-        arrayService.binarySearch(array, searchValue);
-    }
-
     @Test
     public void testMinValue() {
         int actual = arrayService.minValue(testArray);
