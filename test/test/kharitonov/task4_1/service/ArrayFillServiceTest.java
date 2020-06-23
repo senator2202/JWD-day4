@@ -57,9 +57,8 @@ public class ArrayFillServiceTest {
     public void testConsoleFill() {
         IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
-        String data = dataConsoleValid;
         ByteArrayInputStream in =
-                new ByteArrayInputStream(data.getBytes());
+                new ByteArrayInputStream(dataConsoleValid.getBytes());
         System.setIn(in);
         try {
             arrayFillService.consoleFill(array, in);
@@ -74,9 +73,8 @@ public class ArrayFillServiceTest {
     public void testConsoleFillTrue() {
         IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
-        String data = dataConsoleValid;
         ByteArrayInputStream in =
-                new ByteArrayInputStream(data.getBytes());
+                new ByteArrayInputStream(dataConsoleValid.getBytes());
         System.setIn(in);
         boolean actual = false;
         try {
@@ -108,11 +106,9 @@ public class ArrayFillServiceTest {
 
     @Test
     public void testConsoleFillBadArray() {
-        IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
-        String data = dataConsoleValid;
         ByteArrayInputStream in =
-                new ByteArrayInputStream(data.getBytes());
+                new ByteArrayInputStream(dataConsoleValid.getBytes());
         System.setIn(in);
         boolean actual = false;
         try {
@@ -127,7 +123,6 @@ public class ArrayFillServiceTest {
     @Test(expectedExceptions = ArrayException.class)
     public void testConsoleFillException() throws ArrayException {
         IntegerArray array = new IntegerArray(5);
-        InputStream sysInBackup = System.in;
         String data = "100UlaUlala" + System.lineSeparator();
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
