@@ -37,7 +37,7 @@ public class ArrayFillService {
         }
         Scanner scanner = new Scanner(in);
         for (int i = 0; i < array.getLength(); i++) {
-            int value = 0;
+            int value;
             try {
                 value = scanner.nextInt();
             } catch (InputMismatchException e) {
@@ -57,7 +57,7 @@ public class ArrayFillService {
             return false;
         }
         Path path = Paths.get(fileName);
-        Scanner scanner = null;
+        Scanner scanner;
         try {
             scanner = new Scanner(path);
         } catch (IOException e) {

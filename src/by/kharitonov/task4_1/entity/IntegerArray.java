@@ -124,7 +124,7 @@ public class IntegerArray {
         temp = Double.doubleToLongBits((double) dataArray.length +
                 getFirst() + getLast());
         result = (int) (temp ^ (temp >>> 32));
-        result = 31 * result + dataArray.hashCode();
+        result = 31 * result + (int) temp;
         return result;
     }
 

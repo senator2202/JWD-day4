@@ -3,8 +3,6 @@ package by.kharitonov.task4_1.service;
 import by.kharitonov.task4_1.entity.IntegerArray;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-
 public class ArrayMathService {
     public int minValue(@NotNull IntegerArray array) {
         return array.minValue();
@@ -15,7 +13,6 @@ public class ArrayMathService {
     }
 
     public int[] simpleNumbers(@NotNull IntegerArray array) {
-        ArrayList<Integer> simpleList = new ArrayList<>();
         int[] simpleNumbers = new int[simpleNumbersCount(array)];
         int count = 0;
         for (int i = 0; i < array.getLength(); i++) {
@@ -80,8 +77,8 @@ public class ArrayMathService {
 
     private boolean arrayHasNumber(int[] array, int number) {
         number = number >= 0 ? number : -number;
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == number) {
+        for (int i1 : array) {
+            if (i1 == number) {
                 return true;
             }
         }
@@ -103,7 +100,7 @@ public class ArrayMathService {
 
     private int fiboSeqSize(int number) {
         int sum = 1;
-        int count = 2;
+        int count;
         int last = 1;
         int beforeLast = 0;
         for (count = 2; sum < number; count++) {

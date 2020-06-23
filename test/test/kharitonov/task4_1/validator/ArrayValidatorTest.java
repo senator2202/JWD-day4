@@ -89,9 +89,9 @@ public class ArrayValidatorTest {
         assertEquals(actual, expected);
     }
 
-    @DataProvider(name = "dataBalidateBinarySearchValue")
+    @DataProvider(name = "dataValidateBinarySearchValue")
     @Test
-    public Object[][] dataBalidateBinarySearchValue() {
+    public Object[][] dataValidateBinarySearchValue() {
         return new Object[][]{
                 {testArray, 24, false},
                 {sortedUpArray, -9999, false},
@@ -102,7 +102,7 @@ public class ArrayValidatorTest {
     }
 
     @Parameters({"integerArray", "value", "expected"})
-    @Test(dataProvider = "dataBalidateBinarySearchValue")
+    @Test(dataProvider = "dataValidateBinarySearchValue")
     public void testValidateBinarySearchValue(IntegerArray array,
                                               int searchValue,
                                               boolean expected) {
