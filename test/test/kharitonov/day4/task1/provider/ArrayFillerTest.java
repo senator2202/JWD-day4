@@ -131,7 +131,7 @@ public class ArrayFillerTest {
     public void testFileFillTrue() {
         try {
             IntegerArray array = new IntegerArray(5);
-            arrayFiller.fileFill(array, "IntegerArray.txt");
+            arrayFiller.fileFill(array, "resources\\IntegerArray.txt");
             assertEquals(array, testArray);
         } catch (ArrayException e) {
             fail();
@@ -164,9 +164,9 @@ public class ArrayFillerTest {
     @Test
     public Object[][] dataForFileFillException() {
         return new Object[][]{
-                {5, "NotExistingFile.txt"},
-                {5, "IncompleteArray.txt"},
-                {5, "InvalidArray.txt"}
+                {5, "resources\\NotExistingFile.txt"},
+                {5, "resources\\IncompleteArray.txt"},
+                {5, "resources\\InvalidArray.txt"}
         };
     }
 
