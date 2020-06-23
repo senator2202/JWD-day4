@@ -19,7 +19,7 @@ public class ArraySearchService {
         int lastIndex = array.getLength() - 1;
         while (firstIndex <= lastIndex) {
             int middleIndex = (firstIndex + lastIndex) / 2;
-            int middleValue = array.getElement(middleIndex).get();
+            int middleValue = array.getElement(middleIndex);
             if (middleValue == searchValue) {
                 return middleIndex;
             } else if (middleValue < searchValue) {

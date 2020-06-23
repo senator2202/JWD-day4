@@ -18,7 +18,7 @@ public class ArrayMathService {
     public List<Integer> simpleNumbers(@NotNull IntegerArray array) {
         ArrayList<Integer> simpleList = new ArrayList<>();
         for (int i = 0; i < array.getLength(); i++) {
-            int element = array.getElement(i).get();
+            int element = array.getElement(i);
             if (isSimple(element)) {
                 simpleList.add(element);
             }
@@ -42,7 +42,7 @@ public class ArrayMathService {
     public List<Integer> fibonacciNumbers(IntegerArray array) {
         ArrayList<Integer> fibonacciList = new ArrayList<>();
         for (int i = 0; i < array.getLength(); i++) {
-            Integer temp = array.getElement(i).get();
+            Integer temp = array.getElement(i);
             if (isFibonacciNumber(temp)) {
                 fibonacciList.add(temp);
             }
@@ -72,7 +72,7 @@ public class ArrayMathService {
     public List<Integer> threeDifferentDigitNumbers(IntegerArray array) {
         ArrayList<Integer> list = new ArrayList<>();
         for (int i = 0; i < array.getLength(); i++) {
-            int value = array.getElement(i).get();
+            int value = array.getElement(i);
             if (threeDigitNumber(value) && differentDigitNumber(value)) {
                 list.add(value);
             }

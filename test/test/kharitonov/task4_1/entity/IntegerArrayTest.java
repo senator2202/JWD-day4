@@ -58,19 +58,19 @@ public class IntegerArrayTest {
     @Parameters({"index", "expectedResult"})
     @Test(dataProvider = "dataForGetElement")
     public void testGetElement(int index, Optional<Integer> expectedResult) {
-        Optional<Integer> actualResult = testArray.getElement(index);
+        Optional<Integer> actualResult = testArray.getOptionalElement(index);
         assertEquals(actualResult, expectedResult);
     }
 
     @Test
     public void testGetFirst() {
         int actualResult = testArray.getFirst();
-        assertEquals(actualResult,1);
+        assertEquals(actualResult, 1);
     }
 
     @Test
     public void testGetLast() {
         int actualResult = testArray.getLast();
-        assertEquals(actualResult,23);
+        assertEquals(actualResult, 23);
     }
 }

@@ -81,7 +81,7 @@ public class ArrayFillService {
     private void copy(IntegerArray source, IntegerArray destination) {
         int length = Math.min(source.getLength(), destination.getLength());
         for (int i = 0; i < length; i++) {
-            int value = source.getElement(i).get();
+            int value = source.getElement(i);
             destination.setElement(i, value);
         }
     }

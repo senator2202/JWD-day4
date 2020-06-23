@@ -17,8 +17,8 @@ public class ArraySortService {
         for (int i = 0; i < array.getLength(); i++) {
             temp = i;
             for (int j = i + 1; j < array.getLength(); j++) {
-                if (array.getElement(j).get() <
-                        array.getElement(temp).get() == sortFlag) {
+                if (array.getElement(j) <
+                        array.getElement(temp) == sortFlag) {
                     temp = j;
                 }
             }
@@ -29,8 +29,8 @@ public class ArraySortService {
     }
 
     private void swap(IntegerArray array, int index1, int index2) {
-        int value1 = array.getElement(index1).get();
-        int value2 = array.getElement(index2).get();
+        int value1 = array.getElement(index1);
+        int value2 = array.getElement(index2);
         array.setElement(index1, value2);
         array.setElement(index2, value1);
     }
@@ -45,8 +45,8 @@ public class ArraySortService {
         do {
             cycleFlag = false;
             for (int i = 0; i < array.getLength() - 1; i++) {
-                if (array.getElement(i + 1).get() <
-                        array.getElement(i).get() == sortFlag) {
+                if (array.getElement(i + 1) <
+                        array.getElement(i) == sortFlag) {
                     swap(array, i, i + 1);
                     cycleFlag = true;
                 }

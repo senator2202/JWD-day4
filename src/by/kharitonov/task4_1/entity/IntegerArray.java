@@ -6,9 +6,10 @@ import java.util.Optional;
 
 public class IntegerArray {
     private final int[] dataArray;
+    private static final int DEFAULT_SIZE = 10;
 
     public IntegerArray(int size) {
-        size = size > 1 ? size : 1;
+        size = size > 0 ? size : DEFAULT_SIZE;
         dataArray = new int[size];
     }
 
@@ -39,11 +40,15 @@ public class IntegerArray {
         return index < dataArray.length && index >= 0;
     }
 
-    public Optional<Integer> getElement(int index) {
+    public Optional<Integer> getOptionalElement(int index) {
         if (!inRange(index)) {
             return Optional.empty();
         }
         return Optional.of(dataArray[index]);
+    }
+
+    public int getElement(int index) {
+        return dataArray[index];
     }
 
     public int getFirst() {
@@ -83,7 +88,7 @@ public class IntegerArray {
             return false;
         }
         for (int i = 0; i < dataArray.length; i++) {
-            if (dataArray[i] != array.getElement(i).get()) {
+            if (dataArray[i] != array.getElement(i)) {
                 return false;
             }
         }
