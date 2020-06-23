@@ -1,4 +1,4 @@
-package by.kharitonov.task4_1.provider;
+package by.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
 import by.kharitonov.task4_1.exception.ArrayException;
@@ -13,7 +13,7 @@ import java.util.InputMismatchException;
 import java.util.Random;
 import java.util.Scanner;
 
-public class ArrayFiller {
+public class ArrayFillService {
     public boolean randomFill(IntegerArray array, int bound) {
         ArrayFillerValidator validator = new ArrayFillerValidator();
         if (!validator.validateFillParameters(array, bound)) {

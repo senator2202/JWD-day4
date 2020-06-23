@@ -1,8 +1,9 @@
-package test.kharitonov.task4_1.provider;
+package test.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
 import by.kharitonov.task4_1.exception.ArrayException;
 import by.kharitonov.task4_1.provider.ArrayFiller;
+import by.kharitonov.task4_1.service.ArrayFillService;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -12,8 +13,8 @@ import java.io.InputStream;
 
 import static org.testng.Assert.*;
 
-public class ArrayFillerTest {
-    private final ArrayFiller arrayFiller = new ArrayFiller();
+public class ArrayFillServiceTest {
+    private final ArrayFillService arrayFillService = new ArrayFillService();
     private final IntegerArray testArray;
 
     {
@@ -43,7 +44,7 @@ public class ArrayFillerTest {
     @Test(dataProvider = "dataForRandomFill")
     public void testRandomFill(IntegerArray array, int bound,
                                boolean expected) {
-        boolean actual = arrayFiller.randomFill(array, bound);
+        boolean actual = arrayFillService.randomFill(array, bound);
         assertEquals(actual, expected);
     }
 
@@ -60,7 +61,7 @@ public class ArrayFillerTest {
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
         try {
-            arrayFiller.consoleFill(array, 800, in);
+            arrayFillService.consoleFill(array, 800, in);
         } catch (ArrayException e) {
             fail();
         }
@@ -82,7 +83,7 @@ public class ArrayFillerTest {
         System.setIn(in);
         boolean actual = false;
         try {
-            actual = arrayFiller.consoleFill(array, 900, in);
+            actual = arrayFillService.consoleFill(array, 900, in);
         } catch (ArrayException e) {
             fail();
         }
@@ -104,7 +105,7 @@ public class ArrayFillerTest {
         System.setIn(in);
         boolean actual = false;
         try {
-            actual = arrayFiller.consoleFill(array, 1000, in);
+            actual = arrayFillService.consoleFill(array, 1000, in);
         } catch (ArrayException e) {
             fail();
         }
@@ -124,14 +125,15 @@ public class ArrayFillerTest {
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
-        arrayFiller.consoleFill(array, 255, in);
+        arrayFillService.consoleFill(array, 255, in);
     }
 
     @Test
     public void testFileFillTrue() {
         try {
             IntegerArray array = new IntegerArray(5);
-            arrayFiller.fileFill(array, "resources\\IntegerArray.txt");
+            arrayFillService.fileFill(array, "resources\\" +
+                    "IntegerArray.txt");
             assertEquals(array, testArray);
         } catch (ArrayException e) {
             fail();
@@ -153,7 +155,7 @@ public class ArrayFillerTest {
     @Test(dataProvider = "dataFileFillFalse")
     public void testFileFillFalse(IntegerArray array, String fileName) {
         try {
-            boolean actual = arrayFiller.fileFill(array, fileName);
+            boolean actual = arrayFillService.fileFill(array, fileName);
             assertFalse(actual);
         } catch (ArrayException e) {
             fail();
@@ -176,6 +178,6 @@ public class ArrayFillerTest {
     public void testFileFillException(int size, String fileName)
             throws ArrayException {
         IntegerArray array = new IntegerArray(size);
-        arrayFiller.fileFill(array, fileName);
+        arrayFillService.fileFill(array, fileName);
     }
 }
