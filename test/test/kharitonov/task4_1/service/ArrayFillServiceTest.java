@@ -15,6 +15,7 @@ import static org.testng.Assert.*;
 public class ArrayFillServiceTest {
     private final ArrayFillService arrayFillService = new ArrayFillService();
     private final IntegerArray testArray;
+    private final String dataConsoleValid;
 
     {
         testArray = new IntegerArray(5);
@@ -23,6 +24,11 @@ public class ArrayFillServiceTest {
         testArray.setElement(2, -99);
         testArray.setElement(3, 755);
         testArray.setElement(4, -666);
+        dataConsoleValid = "100" + System.lineSeparator() +
+                "255" + System.lineSeparator() +
+                "-99" + System.lineSeparator() +
+                "755" + System.lineSeparator() +
+                "-666" + System.lineSeparator();
     }
 
     @DataProvider(name = "dataForRandomFill")
@@ -51,16 +57,12 @@ public class ArrayFillServiceTest {
     public void testConsoleFill() {
         IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
-        String data = "100" + System.lineSeparator() +
-                "255" + System.lineSeparator() +
-                "-99" + System.lineSeparator() +
-                "755" + System.lineSeparator() +
-                "-666" + System.lineSeparator();
+        String data = dataConsoleValid;
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
         try {
-            arrayFillService.consoleFill(array, 800, in);
+            arrayFillService.consoleFill(array, in);
         } catch (ArrayException e) {
             fail();
         }
@@ -72,17 +74,13 @@ public class ArrayFillServiceTest {
     public void testConsoleFillTrue() {
         IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
-        String data = "100" + System.lineSeparator() +
-                "255" + System.lineSeparator() +
-                "-99" + System.lineSeparator() +
-                "755" + System.lineSeparator() +
-                "-666" + System.lineSeparator();
+        String data = dataConsoleValid;
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
         boolean actual = false;
         try {
-            actual = arrayFillService.consoleFill(array, 900, in);
+            actual = arrayFillService.consoleFill(array, in);
         } catch (ArrayException e) {
             fail();
         }
@@ -91,20 +89,34 @@ public class ArrayFillServiceTest {
     }
 
     @Test
-    public void testConsoleFillFalse() {
+    public void testConsoleFillBadData() {
         IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
-        String data = "100" + System.lineSeparator() +
-                "255" + System.lineSeparator() +
-                "-99" + System.lineSeparator() +
-                "755" + System.lineSeparator() +
-                "-666" + System.lineSeparator();
+        String data = "1100" + System.lineSeparator();
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
         boolean actual = false;
         try {
-            actual = arrayFillService.consoleFill(array, 1000, in);
+            actual = arrayFillService.consoleFill(array, in);
+        } catch (ArrayException e) {
+            fail();
+        }
+        System.setIn(sysInBackup);
+        assertFalse(actual);
+    }
+
+    @Test
+    public void testConsoleFillBadArray() {
+        IntegerArray array = new IntegerArray(5);
+        InputStream sysInBackup = System.in;
+        String data = dataConsoleValid;
+        ByteArrayInputStream in =
+                new ByteArrayInputStream(data.getBytes());
+        System.setIn(in);
+        boolean actual = false;
+        try {
+            actual = arrayFillService.consoleFill(null, in);
         } catch (ArrayException e) {
             fail();
         }
@@ -116,15 +128,11 @@ public class ArrayFillServiceTest {
     public void testConsoleFillException() throws ArrayException {
         IntegerArray array = new IntegerArray(5);
         InputStream sysInBackup = System.in;
-        String data = "100UlaUlala" + System.lineSeparator() +
-                "255" + System.lineSeparator() +
-                "-99" + System.lineSeparator() +
-                "755" + System.lineSeparator() +
-                "-666" + System.lineSeparator();
+        String data = "100UlaUlala" + System.lineSeparator();
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
-        arrayFillService.consoleFill(array, 255, in);
+        arrayFillService.consoleFill(array, in);
     }
 
     @Test

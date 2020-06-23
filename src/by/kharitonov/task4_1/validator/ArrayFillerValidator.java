@@ -5,22 +5,24 @@ import by.kharitonov.task4_1.entity.IntegerArray;
 import java.io.InputStream;
 
 public class ArrayFillerValidator {
-    private static final int MAX_BOUND = 999;
+    private static final int MIN_VALUE = -999;
+    private static final int MAX_VALUE = 999;
+    private static final int RESTRICTED_VALUE = 0;
 
     public boolean validateFillParameters(IntegerArray array, int bound) {
-        return array != null && inRange(bound);
+        return array != null && validateInRange(bound);
     }
 
-    public boolean validateFillParameters(IntegerArray array, int bound,
-                                          InputStream in) {
-        return array != null && in != null && inRange(bound);
+    public boolean validateFillParameters(IntegerArray array, InputStream in) {
+        return array != null && in != null;
     }
 
     public boolean validateFillParameters(IntegerArray array, String fileName) {
         return array != null && fileName != null && !fileName.isEmpty();
     }
 
-    private boolean inRange(int bound) {
-        return bound > 0 && bound <= MAX_BOUND;
+    public boolean validateInRange(int bound) {
+        return bound >= MIN_VALUE && bound <= MAX_VALUE &&
+                bound != RESTRICTED_VALUE;
     }
 }

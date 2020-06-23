@@ -36,19 +36,17 @@ public class ArrayFillerValidatorTest {
     @Test
     public Object[][] dataValidateFillParameters2() {
         return new Object[][]{
-                {testArray, 555, System.in, true},
-                {testArray, 1000, System.in, false},
-                {null, 555, System.in, false},
-                {testArray, 555, null, false}
+                {testArray, System.in, true},
+                {null, System.in, false},
+                {testArray, null, false}
         };
     }
 
-    @Parameters({"integerArray", "bound", "inputStream", "expected"})
+    @Parameters({"integerArray", "inputStream", "expected"})
     @Test(dataProvider = "dataValidateFillParameters2")
-    public void testValidateFillParameters2(IntegerArray array, int bound,
-                                            InputStream in,
+    public void testValidateFillParameters2(IntegerArray array, InputStream in,
                                             boolean expected) {
-        boolean actual = validator.validateFillParameters(array, bound, in);
+        boolean actual = validator.validateFillParameters(array, in);
         assertEquals(actual, expected);
     }
 
@@ -69,6 +67,25 @@ public class ArrayFillerValidatorTest {
     public void testValidateFillParameters3(IntegerArray array, String fileName,
                                             boolean expected) {
         boolean actual = validator.validateFillParameters(array, fileName);
+        assertEquals(actual, expected);
+    }
+
+    @DataProvider(name = "dataValidateInRange")
+    @Test
+    public Object[][] dataValidateInRange() {
+        return new Object[][]{
+                {-900, true},
+                {0, false},
+                {900, true},
+                {1255, false},
+                {-9999, false}
+        };
+    }
+
+    @Parameters({"value", "expected"})
+    @Test(dataProvider = "dataValidateInRange")
+    public void testValidateInRange(int value, boolean expected) {
+        boolean actual = validator.validateInRange(value);
         assertEquals(actual, expected);
     }
 }

@@ -29,10 +29,10 @@ public class ArrayFillService {
         return true;
     }
 
-    public boolean consoleFill(IntegerArray array, int bound,
+    public boolean consoleFill(IntegerArray array,
                                InputStream in) throws ArrayException {
         ArrayFillerValidator validator = new ArrayFillerValidator();
-        if (!validator.validateFillParameters(array, bound, in)) {
+        if (!validator.validateFillParameters(array, in)) {
             return false;
         }
         Scanner scanner = new Scanner(in);
@@ -43,8 +43,10 @@ public class ArrayFillService {
             } catch (InputMismatchException e) {
                 throw new ArrayException("All values must be integer!");
             }
-            if (value <= bound) {
+            if (validator.validateInRange(value)) {
                 array.setElement(i, value);
+            } else {
+                return false;
             }
         }
         return true;
