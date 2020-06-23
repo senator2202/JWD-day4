@@ -46,63 +46,6 @@ public class ArrayServiceTest {
         sortedDownArray.setElement(6, -15);
     }
 
-    @DataProvider(name = "dataForSort")
-    @Test
-    public Object[][] dataForSort() {
-        return new Object[][]{
-                {testArray.copy(), SortDirection.UP, sortedUpArray},
-                {testArray.copy(), SortDirection.DOWN, sortedDownArray}
-        };
-    }
-
-    @Parameters({"sourceArray", "sortDirection", "expectedArray"})
-    @Test(dataProvider = "dataForSort")
-    public void testSelectionSort(IntegerArray sourceArray,
-                                  SortDirection sortDirection,
-                                  IntegerArray expectedArray) {
-        arrayService.selectionSort(sourceArray, sortDirection);
-        assertEquals(sourceArray, expectedArray);
-    }
-
-    @Test
-    public void testSelectionSortReturn() {
-        IntegerArray array = testArray.copy();
-        arrayService.selectionSort(array, null);
-        assertEquals(array,testArray);
-    }
-
-    @Parameters({"sourceArray", "sortDirection", "expectedArray"})
-    @Test(dataProvider = "dataForSort")
-    public void testBubbleSort(IntegerArray sourceArray,
-                               SortDirection sortDirection,
-                               IntegerArray expectedArray) {
-        arrayService.bubbleSort(sourceArray, sortDirection);
-        assertEquals(sourceArray, expectedArray);
-    }
-
-    @Test
-    public void testBubbleSortReturn() {
-        IntegerArray array = testArray.copy();
-        arrayService.bubbleSort(array, null);
-        assertEquals(array,testArray);
-    }
-
-    @Parameters({"sourceArray", "sortDirection", "expectedArray"})
-    @Test(dataProvider = "dataForSort")
-    public void testStupidSort(IntegerArray sourceArray,
-                               SortDirection sortDirection,
-                               IntegerArray expectedArray) {
-        arrayService.stupidSort(sourceArray, sortDirection);
-        assertEquals(sourceArray, expectedArray);
-    }
-
-    @Test
-    public void testStupidSortReturn() {
-        IntegerArray array = testArray.copy();
-        arrayService.stupidSort(array, null);
-        assertEquals(array,testArray);
-    }
-
     @DataProvider(name = "dataForTestBinarySearch")
     @Test
     public Object[][] dataForTestBinarySearch() {
