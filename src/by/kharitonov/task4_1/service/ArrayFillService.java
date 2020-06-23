@@ -72,6 +72,8 @@ public class ArrayFillService {
             data[1] = scanner.next();
         } catch (Exception e) {
             throw new ArrayException("Not enough data!");
+        } finally {
+            scanner.close();
         }
         filledArray = parser.parseArray(data);
         copy(filledArray, array);

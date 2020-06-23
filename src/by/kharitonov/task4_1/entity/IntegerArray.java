@@ -79,6 +79,16 @@ public class IntegerArray {
         return dataArray[min];
     }
 
+    public int absValue() {
+        int abs = 0;
+        for (int i = 1; i < dataArray.length; i++) {
+            if (Math.abs(dataArray[i]) > Math.abs(dataArray[abs])) {
+                abs = i;
+            }
+        }
+        return Math.abs(dataArray[abs]);
+    }
+
     public IntegerArray copy() {
         return new IntegerArray(dataArray);
     }

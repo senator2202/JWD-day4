@@ -6,10 +6,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.util.ArrayList;
-
 import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.fail;
+import static org.testng.Assert.assertTrue;
 
 public class ArrayMathServiceTest {
     private final ArrayMathService arrayMathService = new ArrayMathService();
@@ -59,38 +57,39 @@ public class ArrayMathServiceTest {
     @DataProvider(name = "dataForSimpleNumbers")
     @Test
     public Object[][] dataForSimpleNumbers() {
-        ArrayList<Integer> list1 = new ArrayList<>();
-        ArrayList<Integer> list2 = new ArrayList<>();
-        ArrayList<Integer> list3 = new ArrayList<>();
-        list1.add(2);
-        list1.add(199);
-        list1.add(23);
-        list2.add(2);
-        list2.add(23);
-        list2.add(199);
-        list3.add(199);
-        list3.add(23);
-        list3.add(2);
+        int[] arr1 = new int[3];
+        int[] arr2 = new int[3];
+        int[] arr3 = new int[3];
+        arr1[0] = 2;
+        arr1[1] = 199;
+        arr1[2] = 23;
+        arr2[0] = 2;
+        arr2[1] = 23;
+        arr2[2] = 199;
+        arr3[0] = 199;
+        arr3[1] = 23;
+        arr3[2] = 2;
         return new Object[][]{
-                {testArray, list1},
-                {sortedUpArray, list2},
-                {sortedDownArray, list3}
+                {testArray, arr1},
+                {sortedUpArray, arr2},
+                {sortedDownArray, arr3}
         };
     }
 
     @Parameters({"array", "expected"})
     @Test(dataProvider = "dataForSimpleNumbers")
     public void testSimpleNumbers(IntegerArray array,
-                                  ArrayList<Integer> expected) {
-        ArrayList<Integer> actual = (ArrayList<Integer>)
-                arrayMathService.simpleNumbers(array);
-        assertEquals(actual, expected);
+                                  int[] expected) {
+        int[] actual = arrayMathService.simpleNumbers(array);
+        boolean equals = arraysEquals(actual, expected);
+        assertTrue(equals);
     }
 
     @Test
     public void testFibonacciNumbers() {
         IntegerArray array = new IntegerArray(7);
-        ArrayList<Integer> expected = new ArrayList<>();
+        int[] expected = new int[5];
+        boolean equals;
         array.setElement(0, 0);
         array.setElement(1, 22);
         array.setElement(2, 3);
@@ -98,31 +97,46 @@ public class ArrayMathServiceTest {
         array.setElement(4, 55);
         array.setElement(5, 100);
         array.setElement(6, -4181);
-        expected.add(0);
-        expected.add(3);
-        expected.add(-5);
-        expected.add(55);
-        expected.add(-4181);
-        ArrayList<Integer> actual = (ArrayList<Integer>)
-                arrayMathService.fibonacciNumbers(array);
-        assertEquals(actual, expected);
+        expected[0] = 0;
+        expected[1] = 3;
+        expected[2] = -5;
+        expected[3] = 55;
+        expected[4] = -4181;
+        int[] actual = arrayMathService.fibonacciNumbers(array);
+        equals = arraysEquals(actual, expected);
+        assertTrue(equals);
     }
 
     @Test
     public void testThreeDifferentDigitNumbers() {
         IntegerArray array = new IntegerArray(6);
-        ArrayList<Integer> expected = new ArrayList<>();
+        int[] expected = new int[3];
+        int[] actual;
+        boolean equals;
         array.setElement(0, 0);
         array.setElement(1, 234);
         array.setElement(2, -378);
         array.setElement(3, -5678);
         array.setElement(4, 566);
         array.setElement(5, 123);
-        expected.add(234);
-        expected.add(-378);
-        expected.add(123);
-        ArrayList<Integer> actual = (ArrayList<Integer>)
-                arrayMathService.threeDifferentDigitNumbers(array);
-        assertEquals(actual, expected);
+        expected[0] = 234;
+        expected[1] = -378;
+        expected[2] = 123;
+        actual = arrayMathService.threeDifferentDigitNumbers(array);
+        equals = arraysEquals(actual, expected);
+        assertTrue(equals);
+    }
+
+    private boolean arraysEquals(int[] array1, int[] array2) {
+        if (array1 == null || array2 == null ||
+                array1.length != array2.length) {
+            return false;
+        }
+        for (int i = 0; i < array1.length; i++) {
+            if (array1[i] != array2[i]) {
+                return false;
+            }
+        }
+        return true;
     }
 }

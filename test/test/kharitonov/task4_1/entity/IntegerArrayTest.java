@@ -16,7 +16,7 @@ public class IntegerArrayTest {
         testArray = new IntegerArray(5);
         testArray.setElement(0, 1);
         testArray.setElement(1, 2);
-        testArray.setElement(2, -3);
+        testArray.setElement(2, -33);
         testArray.setElement(3, 0);
         testArray.setElement(4, 23);
     }
@@ -44,9 +44,9 @@ public class IntegerArrayTest {
         assertEquals(actualResult, expectedResult);
     }
 
-    @DataProvider(name = "dataForGetElement")
+    @DataProvider(name = "dataForGetOptionalElement")
     @Test
-    public Object[][] dataForGetElement() {
+    public Object[][] dataForGetOptionalElement() {
         return new Object[][]{
                 {-1, Optional.empty()},
                 {0, Optional.of(1)},
@@ -56,8 +56,8 @@ public class IntegerArrayTest {
     }
 
     @Parameters({"index", "expectedResult"})
-    @Test(dataProvider = "dataForGetElement")
-    public void testGetElement(int index, Optional<Integer> expectedResult) {
+    @Test(dataProvider = "dataForGetOptionalElement")
+    public void testGetOptionalElement(int index, Optional<Integer> expectedResult) {
         Optional<Integer> actualResult = testArray.getOptionalElement(index);
         assertEquals(actualResult, expectedResult);
     }
@@ -72,5 +72,23 @@ public class IntegerArrayTest {
     public void testGetLast() {
         int actualResult = testArray.getLast();
         assertEquals(actualResult, 23);
+    }
+
+    @Test
+    public void testMaxValue() {
+        int actualResult = testArray.maxValue();
+        assertEquals(actualResult, 23);
+    }
+
+    @Test
+    public void testMinValue() {
+        int actualResult = testArray.minValue();
+        assertEquals(actualResult, -33);
+    }
+
+    @Test
+    public void testAbsValue() {
+        int actualResult = testArray.absValue();
+        assertEquals(actualResult, 33);
     }
 }
