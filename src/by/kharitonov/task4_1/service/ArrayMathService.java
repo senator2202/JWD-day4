@@ -1,15 +1,12 @@
 package by.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.entity.SortDirection;
-import by.kharitonov.task4_1.exception.ArrayException;
-import by.kharitonov.task4_1.validator.ArrayValidator;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayService {
+public class ArrayMathService {
     public int minValue(@NotNull IntegerArray array) {
         return array.minValue();
     }

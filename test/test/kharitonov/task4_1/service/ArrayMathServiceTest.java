@@ -1,9 +1,7 @@
 package test.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.entity.SortDirection;
-import by.kharitonov.task4_1.exception.ArrayException;
-import by.kharitonov.task4_1.service.ArrayService;
+import by.kharitonov.task4_1.service.ArrayMathService;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -13,8 +11,8 @@ import java.util.ArrayList;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.fail;
 
-public class ArrayServiceTest {
-    private final ArrayService arrayService = new ArrayService();
+public class ArrayMathServiceTest {
+    private final ArrayMathService arrayMathService = new ArrayMathService();
     private final IntegerArray testArray;
     private final IntegerArray sortedUpArray;
     private final IntegerArray sortedDownArray;
@@ -48,13 +46,13 @@ public class ArrayServiceTest {
 
     @Test
     public void testMinValue() {
-        int actual = arrayService.minValue(testArray);
+        int actual = arrayMathService.minValue(testArray);
         assertEquals(actual, -15);
     }
 
     @Test
     public void testMaxValue() {
-        int actual = arrayService.maxValue(testArray);
+        int actual = arrayMathService.maxValue(testArray);
         assertEquals(actual, 199);
     }
 
@@ -85,7 +83,7 @@ public class ArrayServiceTest {
     public void testSimpleNumbers(IntegerArray array,
                                   ArrayList<Integer> expected) {
         ArrayList<Integer> actual = (ArrayList<Integer>)
-                arrayService.simpleNumbers(array);
+                arrayMathService.simpleNumbers(array);
         assertEquals(actual, expected);
     }
 
@@ -106,7 +104,7 @@ public class ArrayServiceTest {
         expected.add(55);
         expected.add(-4181);
         ArrayList<Integer> actual = (ArrayList<Integer>)
-                arrayService.fibonacciNumbers(array);
+                arrayMathService.fibonacciNumbers(array);
         assertEquals(actual, expected);
     }
 
@@ -124,7 +122,7 @@ public class ArrayServiceTest {
         expected.add(-378);
         expected.add(123);
         ArrayList<Integer> actual = (ArrayList<Integer>)
-                arrayService.threeDifferentDigitNumbers(array);
+                arrayMathService.threeDifferentDigitNumbers(array);
         assertEquals(actual, expected);
     }
 }
