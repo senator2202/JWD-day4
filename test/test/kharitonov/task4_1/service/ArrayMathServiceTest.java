@@ -72,7 +72,8 @@ public class ArrayMathServiceTest {
         return new Object[][]{
                 {testArray, arr1},
                 {sortedUpArray, arr2},
-                {sortedDownArray, arr3}
+                {sortedDownArray, arr3},
+                {new IntegerArray(5), new int[0]}
         };
     }
 
