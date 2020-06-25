@@ -1,7 +1,7 @@
 package test.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.exception.ArrayException;
+import by.kharitonov.task4_1.exception.IntegerArrayException;
 import by.kharitonov.task4_1.service.ArrayFillService;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
@@ -62,7 +62,7 @@ public class ArrayFillServiceTest {
         System.setIn(in);
         try {
             arrayFillService.consoleFill(array, in);
-        } catch (ArrayException e) {
+        } catch (IntegerArrayException e) {
             fail();
         }
         System.setIn(sysInBackup);
@@ -79,7 +79,7 @@ public class ArrayFillServiceTest {
         boolean actual = false;
         try {
             actual = arrayFillService.consoleFill(array, in);
-        } catch (ArrayException e) {
+        } catch (IntegerArrayException e) {
             fail();
         }
         System.setIn(sysInBackup);
@@ -97,7 +97,7 @@ public class ArrayFillServiceTest {
         boolean actual = false;
         try {
             actual = arrayFillService.consoleFill(array, in);
-        } catch (ArrayException e) {
+        } catch (IntegerArrayException e) {
             fail();
         }
         System.setIn(sysInBackup);
@@ -113,15 +113,15 @@ public class ArrayFillServiceTest {
         boolean actual = false;
         try {
             actual = arrayFillService.consoleFill(null, in);
-        } catch (ArrayException e) {
+        } catch (IntegerArrayException e) {
             fail();
         }
         System.setIn(sysInBackup);
         assertFalse(actual);
     }
 
-    @Test(expectedExceptions = ArrayException.class)
-    public void testConsoleFillException() throws ArrayException {
+    @Test(expectedExceptions = IntegerArrayException.class)
+    public void testConsoleFillException() throws IntegerArrayException {
         IntegerArray array = new IntegerArray(5);
         String data = "100UlaUlala" + System.lineSeparator();
         ByteArrayInputStream in =
@@ -137,7 +137,7 @@ public class ArrayFillServiceTest {
             arrayFillService.fileFill(array, "resources\\" +
                     "IntegerArray.txt");
             assertEquals(array, testArray);
-        } catch (ArrayException e) {
+        } catch (IntegerArrayException e) {
             fail();
         }
     }
@@ -159,7 +159,7 @@ public class ArrayFillServiceTest {
         try {
             boolean actual = arrayFillService.fileFill(array, fileName);
             assertFalse(actual);
-        } catch (ArrayException e) {
+        } catch (IntegerArrayException e) {
             fail();
         }
     }
@@ -175,10 +175,10 @@ public class ArrayFillServiceTest {
     }
 
     @Parameters({"size", "fileName"})
-    @Test(expectedExceptions = ArrayException.class,
+    @Test(expectedExceptions = IntegerArrayException.class,
             dataProvider = "dataForFileFillException")
     public void testFileFillException(int size, String fileName)
-            throws ArrayException {
+            throws IntegerArrayException {
         IntegerArray array = new IntegerArray(size);
         arrayFillService.fileFill(array, fileName);
     }

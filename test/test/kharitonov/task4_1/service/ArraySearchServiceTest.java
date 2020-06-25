@@ -1,7 +1,7 @@
 package test.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.exception.ArrayException;
+import by.kharitonov.task4_1.exception.IntegerArrayException;
 import by.kharitonov.task4_1.service.ArraySearchService;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
@@ -63,7 +63,7 @@ public class ArraySearchServiceTest {
         try {
             int actual = arraySearchService.binarySearch(array, searchValue);
             assertEquals(actual, expected);
-        } catch (ArrayException e) {
+        } catch (IntegerArrayException e) {
             fail();
         }
     }
@@ -79,9 +79,9 @@ public class ArraySearchServiceTest {
 
     @Parameters({"array", "searchValue"})
     @Test(dataProvider = "dataForTestBinarySearchException",
-            expectedExceptions = ArrayException.class)
+            expectedExceptions = IntegerArrayException.class)
     public void testBinarySearchException(IntegerArray array, int searchValue)
-            throws ArrayException {
+            throws IntegerArrayException {
         arraySearchService.binarySearch(array, searchValue);
     }
 }

@@ -1,7 +1,7 @@
 package test.kharitonov.task4_1.parser;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.exception.ArrayException;
+import by.kharitonov.task4_1.exception.IntegerArrayException;
 import by.kharitonov.task4_1.parser.ArrayParser;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
@@ -19,7 +19,7 @@ public class ArrayParserTest {
         IntegerArray actual = null;
         try {
             actual = arrayParser.parseArray(data);
-        } catch (ArrayException e) {
+        } catch (IntegerArrayException e) {
             fail();
         }
         IntegerArray expected = new IntegerArray(7);
@@ -43,9 +43,9 @@ public class ArrayParserTest {
     }
 
     @Parameters("data")
-    @Test(expectedExceptions = ArrayException.class,
+    @Test(expectedExceptions = IntegerArrayException.class,
             dataProvider = "dataParseArrayException")
-    public void testParseArrayException(String[] data) throws ArrayException {
+    public void testParseArrayException(String[] data) throws IntegerArrayException {
         arrayParser.parseArray(data);
     }
 }

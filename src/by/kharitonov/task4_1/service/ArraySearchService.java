@@ -2,15 +2,15 @@ package by.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
 import by.kharitonov.task4_1.entity.SortDirection;
-import by.kharitonov.task4_1.exception.ArrayException;
+import by.kharitonov.task4_1.exception.IntegerArrayException;
 import by.kharitonov.task4_1.validator.ArrayValidator;
 
 public class ArraySearchService {
     public int binarySearch(IntegerArray array, int searchValue)
-            throws ArrayException {
+            throws IntegerArrayException {
         ArrayValidator validator = new ArrayValidator();
         if (!validator.validateIsSorted(array, SortDirection.UP)) {
-            throw new ArrayException("IntegerArray is not sorted!");
+            throw new IntegerArrayException("IntegerArray is not sorted!");
         }
         if (!validator.validateBinarySearchValue(array, searchValue)) {
             return -1;

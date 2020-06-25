@@ -1,7 +1,7 @@
 package by.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.exception.ArrayException;
+import by.kharitonov.task4_1.exception.IntegerArrayException;
 import by.kharitonov.task4_1.parser.ArrayParser;
 import by.kharitonov.task4_1.validator.ArrayFillerValidator;
 
@@ -30,7 +30,7 @@ public class ArrayFillService {
     }
 
     public boolean consoleFill(IntegerArray array,
-                               InputStream in) throws ArrayException {
+                               InputStream in) throws IntegerArrayException {
         ArrayFillerValidator validator = new ArrayFillerValidator();
         if (!validator.validateFillParameters(array, in)) {
             return false;
@@ -41,7 +41,7 @@ public class ArrayFillService {
             try {
                 value = scanner.nextInt();
             } catch (InputMismatchException e) {
-                throw new ArrayException("All values must be integer!");
+                throw new IntegerArrayException("All values must be integer!");
             }
             if (validator.validateInRange(value)) {
                 array.setElement(i, value);
@@ -53,7 +53,7 @@ public class ArrayFillService {
     }
 
     public boolean fileFill(IntegerArray array, String fileName)
-            throws ArrayException {
+            throws IntegerArrayException {
         ArrayFillerValidator validator = new ArrayFillerValidator();
         if (!validator.validateFillParameters(array, fileName)) {
             return false;
@@ -63,7 +63,7 @@ public class ArrayFillService {
         try {
             scanner = new Scanner(path);
         } catch (IOException e) {
-            throw new ArrayException("Wrong file name!");
+            throw new IntegerArrayException("Wrong file name!");
         }
         ArrayParser parser = new ArrayParser();
         String[] data = new String[2];
@@ -73,7 +73,7 @@ public class ArrayFillService {
             data[0] = scanner.next();
             data[1] = scanner.next();
         } catch (Exception e) {
-            throw new ArrayException("Not enough data!");
+            throw new IntegerArrayException("Not enough data!");
         } finally {
             scanner.close();
         }
