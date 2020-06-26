@@ -9,7 +9,6 @@ public enum SortType {
     DECREASING_MAX(SortDirection.DOWN, PeakType.MAX),
     INCREASING_MIN(SortDirection.UP, PeakType.MIN),
     DECREASING_MIN(SortDirection.DOWN, PeakType.MIN);
-
     private final SortDirection sortDirection;
     private final PeakType peakType;
 

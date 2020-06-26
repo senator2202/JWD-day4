@@ -61,7 +61,7 @@ public class ArrayFillServiceTest {
                 new ByteArrayInputStream(dataConsoleValid.getBytes());
         System.setIn(in);
         try {
-            arrayFillService.consoleFill(array, in);
+            arrayFillService.consoleFill(array);
         } catch (IntegerArrayException e) {
             fail();
         }
@@ -78,7 +78,7 @@ public class ArrayFillServiceTest {
         System.setIn(in);
         boolean actual = false;
         try {
-            actual = arrayFillService.consoleFill(array, in);
+            actual = arrayFillService.consoleFill(array);
         } catch (IntegerArrayException e) {
             fail();
         }
@@ -96,7 +96,7 @@ public class ArrayFillServiceTest {
         System.setIn(in);
         boolean actual = false;
         try {
-            actual = arrayFillService.consoleFill(array, in);
+            actual = arrayFillService.consoleFill(array);
         } catch (IntegerArrayException e) {
             fail();
         }
@@ -105,14 +105,14 @@ public class ArrayFillServiceTest {
     }
 
     @Test
-    public void testConsoleFillBadArray() {
+    public void testConsoleFillNullArray() {
         InputStream sysInBackup = System.in;
         ByteArrayInputStream in =
                 new ByteArrayInputStream(dataConsoleValid.getBytes());
         System.setIn(in);
         boolean actual = false;
         try {
-            actual = arrayFillService.consoleFill(null, in);
+            actual = arrayFillService.consoleFill(null);
         } catch (IntegerArrayException e) {
             fail();
         }
@@ -127,7 +127,7 @@ public class ArrayFillServiceTest {
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
-        arrayFillService.consoleFill(array, in);
+        arrayFillService.consoleFill(array);
     }
 
     @Test

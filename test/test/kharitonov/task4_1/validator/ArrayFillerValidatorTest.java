@@ -6,8 +6,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import java.io.InputStream;
-
 import static org.testng.Assert.assertEquals;
 
 public class ArrayFillerValidatorTest {
@@ -29,24 +27,6 @@ public class ArrayFillerValidatorTest {
     public void testValidateFillParameters1(IntegerArray array, int bound,
                                             boolean expected) {
         boolean actual = validator.validateFillParameters(array, bound);
-        assertEquals(actual, expected);
-    }
-
-    @DataProvider(name = "dataValidateFillParameters2")
-    @Test
-    public Object[][] dataValidateFillParameters2() {
-        return new Object[][]{
-                {testArray, System.in, true},
-                {null, System.in, false},
-                {testArray, null, false}
-        };
-    }
-
-    @Parameters({"integerArray", "inputStream", "expected"})
-    @Test(dataProvider = "dataValidateFillParameters2")
-    public void testValidateFillParameters2(IntegerArray array, InputStream in,
-                                            boolean expected) {
-        boolean actual = validator.validateFillParameters(array, in);
         assertEquals(actual, expected);
     }
 

@@ -6,10 +6,10 @@ import by.kharitonov.task4_1.parser.ArrayParser;
 import by.kharitonov.task4_1.validator.ArrayFillerValidator;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.InputMismatchException;
+import java.util.NoSuchElementException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -29,19 +29,20 @@ public class ArrayFillService {
         return true;
     }
 
-    public boolean consoleFill(IntegerArray array,
-                               InputStream in) throws IntegerArrayException {
+    public boolean consoleFill(IntegerArray array) throws IntegerArrayException {
         ArrayFillerValidator validator = new ArrayFillerValidator();
-        if (!validator.validateFillParameters(array, in)) {
+        if (array == null) {
             return false;
         }
-        Scanner scanner = new Scanner(in);
+        Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < array.getLength(); i++) {
             int value;
             try {
                 value = scanner.nextInt();
             } catch (InputMismatchException e) {
                 throw new IntegerArrayException("All values must be integer!");
+            } catch (NoSuchElementException e) {
+                throw new IntegerArrayException("Not enough data!");
             }
             if (validator.validateInRange(value)) {
                 array.setElement(i, value);

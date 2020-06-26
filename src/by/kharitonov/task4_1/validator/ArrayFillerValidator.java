@@ -2,8 +2,6 @@ package by.kharitonov.task4_1.validator;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
 
-import java.io.InputStream;
-
 public class ArrayFillerValidator {
     private static final int MIN_VALUE = -999;
     private static final int MAX_VALUE = 999;
@@ -11,10 +9,6 @@ public class ArrayFillerValidator {
 
     public boolean validateFillParameters(IntegerArray array, int bound) {
         return array != null && validateInRange(bound);
-    }
-
-    public boolean validateFillParameters(IntegerArray array, InputStream in) {
-        return array != null && in != null;
     }
 
     public boolean validateFillParameters(IntegerArray array, String fileName) {
