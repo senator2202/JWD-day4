@@ -61,7 +61,6 @@ public class ArrayFillerValidatorTest {
         };
     }
 
-
     @Parameters({"integerArray", "fileName", "expected"})
     @Test(dataProvider = "dataValidateFillParameters3")
     public void testValidateFillParameters3(IntegerArray array, String fileName,

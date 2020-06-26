@@ -1,7 +1,7 @@
 package test.kharitonov.task4_2.service;
 
-import by.kharitonov.task4_2.type.SortType;
 import by.kharitonov.task4_2.service.JaggedArrayService;
+import by.kharitonov.task4_2.type.SortType;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;

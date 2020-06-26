@@ -15,7 +15,6 @@ public class JaggedArrayValidatorTest {
     @Test
     public Object[][] dataValidateJaggedArray() {
         return new Object[][]{
-
                 {null, SortType.DECREASING_MAX, false},
                 {jaggedArray(), SortType.DECREASING_MIN, true},
                 {badJaggedArray(), SortType.INCREASING_SUM, false},

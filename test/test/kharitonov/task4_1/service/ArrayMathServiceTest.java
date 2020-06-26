@@ -80,6 +80,11 @@ public class ArrayMathServiceTest {
         assertTrue(equals);
     }
 
+    @Test(expectedExceptions = IntegerArrayException.class)
+    public void testSimpleNumbersException() throws IntegerArrayException {
+        arrayMathService.simpleNumbers(null);
+    }
+
     @Test
     public void testFibonacciNumbers() {
         IntegerArray array = new IntegerArray(7);
@@ -107,6 +112,11 @@ public class ArrayMathServiceTest {
         assertTrue(equals);
     }
 
+    @Test(expectedExceptions = IntegerArrayException.class)
+    public void testFibonacciNumbersException() throws IntegerArrayException {
+        arrayMathService.fibonacciNumbers(null);
+    }
+
     @Test
     public void testThreeDifferentDigitNumbers() {
         IntegerArray array = new IntegerArray(6);
@@ -129,6 +139,12 @@ public class ArrayMathServiceTest {
         }
         equals = arraysEquals(actual, expected);
         assertTrue(equals);
+    }
+
+    @Test(expectedExceptions = IntegerArrayException.class)
+    public void testThreeDifferentDigitNumbersException()
+            throws IntegerArrayException {
+        arrayMathService.threeDifferentDigitNumbers(null);
     }
 
     private boolean arraysEquals(int[] array1, int[] array2) {

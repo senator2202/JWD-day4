@@ -1,8 +1,8 @@
 package test.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.type.SortDirection;
 import by.kharitonov.task4_1.service.ArraySortService;
+import by.kharitonov.task4_1.type.SortDirection;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
@@ -64,7 +64,7 @@ public class ArraySortServiceTest {
     public void testSelectionSortReturn() {
         IntegerArray array = testArray.copy();
         arraySortService.selectionSort(array, null);
-        assertEquals(array,testArray);
+        assertEquals(array, testArray);
     }
 
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
@@ -80,7 +80,7 @@ public class ArraySortServiceTest {
     public void testBubbleSortReturn() {
         IntegerArray array = testArray.copy();
         arraySortService.bubbleSort(array, null);
-        assertEquals(array,testArray);
+        assertEquals(array, testArray);
     }
 
     @Parameters({"sourceArray", "sortDirection", "expectedArray"})
@@ -96,6 +96,6 @@ public class ArraySortServiceTest {
     public void testStupidSortReturn() {
         IntegerArray array = testArray.copy();
         arraySortService.stupidSort(array, null);
-        assertEquals(array,testArray);
+        assertEquals(array, testArray);
     }
 }

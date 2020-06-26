@@ -5,8 +5,8 @@ import by.kharitonov.task4_1.exception.IntegerArrayException;
 import java.util.Optional;
 
 public class IntegerArray {
-    private final int[] dataArray;
     private static final int DEFAULT_SIZE = 10;
+    private final int[] dataArray;
 
     public IntegerArray(int size) {
         size = size > 0 ? size : DEFAULT_SIZE;
