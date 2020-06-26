@@ -1,4 +1,4 @@
-package by.kharitonov.task4_2.entity;
+package by.kharitonov.task4_2.type;
 
 public enum PeakType {
     MAX, MIN, NONE

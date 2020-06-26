@@ -1,13 +1,14 @@
 package test.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
+import by.kharitonov.task4_1.exception.IntegerArrayException;
 import by.kharitonov.task4_1.service.ArrayMathService;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
+import static org.testng.Assert.fail;
 
 public class ArrayMathServiceTest {
     private final ArrayMathService arrayMathService = new ArrayMathService();
@@ -42,18 +43,6 @@ public class ArrayMathServiceTest {
         sortedDownArray.setElement(6, -15);
     }
 
-    @Test
-    public void testMinValue() {
-        int actual = arrayMathService.minValue(testArray);
-        assertEquals(actual, -15);
-    }
-
-    @Test
-    public void testMaxValue() {
-        int actual = arrayMathService.maxValue(testArray);
-        assertEquals(actual, 199);
-    }
-
     @DataProvider(name = "dataForSimpleNumbers")
     @Test
     public Object[][] dataForSimpleNumbers() {
@@ -81,7 +70,12 @@ public class ArrayMathServiceTest {
     @Test(dataProvider = "dataForSimpleNumbers")
     public void testSimpleNumbers(IntegerArray array,
                                   int[] expected) {
-        int[] actual = arrayMathService.simpleNumbers(array);
+        int[] actual = new int[0];
+        try {
+            actual = arrayMathService.simpleNumbers(array);
+        } catch (IntegerArrayException e) {
+            fail();
+        }
         boolean equals = arraysEquals(actual, expected);
         assertTrue(equals);
     }
@@ -103,7 +97,12 @@ public class ArrayMathServiceTest {
         expected[2] = -5;
         expected[3] = 55;
         expected[4] = -4181;
-        int[] actual = arrayMathService.fibonacciNumbers(array);
+        int[] actual = new int[0];
+        try {
+            actual = arrayMathService.fibonacciNumbers(array);
+        } catch (IntegerArrayException e) {
+            fail();
+        }
         equals = arraysEquals(actual, expected);
         assertTrue(equals);
     }
@@ -112,7 +111,7 @@ public class ArrayMathServiceTest {
     public void testThreeDifferentDigitNumbers() {
         IntegerArray array = new IntegerArray(6);
         int[] expected = new int[3];
-        int[] actual;
+        int[] actual = new int[0];
         boolean equals;
         array.setElement(0, 0);
         array.setElement(1, 234);
@@ -123,7 +122,11 @@ public class ArrayMathServiceTest {
         expected[0] = 234;
         expected[1] = -378;
         expected[2] = 123;
-        actual = arrayMathService.threeDifferentDigitNumbers(array);
+        try {
+            actual = arrayMathService.threeDifferentDigitNumbers(array);
+        } catch (IntegerArrayException e) {
+            fail();
+        }
         equals = arraysEquals(actual, expected);
         assertTrue(equals);
     }

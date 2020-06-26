@@ -1,7 +1,7 @@
 package test.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.entity.SortDirection;
+import by.kharitonov.task4_1.type.SortDirection;
 import by.kharitonov.task4_1.service.ArraySortService;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;
