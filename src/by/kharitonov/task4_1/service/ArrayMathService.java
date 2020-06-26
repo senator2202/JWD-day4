@@ -1,18 +1,16 @@
 package by.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import org.jetbrains.annotations.NotNull;
+import by.kharitonov.task4_1.exception.IntegerArrayException;
 
 public class ArrayMathService {
-    public int minValue(@NotNull IntegerArray array) {
-        return array.minValue();
-    }
+    private static final String NULL_MESSAGE = "Input array has null pointer!";
 
-    public int maxValue(@NotNull IntegerArray array) {
-        return array.maxValue();
-    }
-
-    public int[] simpleNumbers(@NotNull IntegerArray array) {
+    public int[] simpleNumbers(IntegerArray array)
+            throws IntegerArrayException {
+        if (array == null) {
+            throw new IntegerArrayException(NULL_MESSAGE);
+        }
         int[] simpleNumbers = new int[simpleNumbersCount(array)];
         int count = 0;
         for (int i = 0; i < array.getLength(); i++) {
@@ -50,7 +48,11 @@ public class ArrayMathService {
         return count == 2;
     }
 
-    public int[] fibonacciNumbers(@NotNull IntegerArray array) {
+    public int[] fibonacciNumbers(IntegerArray array)
+            throws IntegerArrayException {
+        if (array == null) {
+            throw new IntegerArrayException(NULL_MESSAGE);
+        }
         int[] fiboSeq = fibonacciSequence(array.absValue());
         int[] fiboNumbers = new int[fiboSeqSize(array)];
         int count = 0;
@@ -111,7 +113,11 @@ public class ArrayMathService {
         return count;
     }
 
-    public int[] threeDifferentDigitNumbers(IntegerArray array) {
+    public int[] threeDifferentDigitNumbers(IntegerArray array)
+            throws IntegerArrayException {
+        if (array == null) {
+            throw new IntegerArrayException(NULL_MESSAGE);
+        }
         int[] numbers = new int[threeDifferentDigitNumberCount(array)];
         int index = 0;
         for (int i = 0; i < array.getLength(); i++) {

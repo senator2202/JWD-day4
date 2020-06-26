@@ -1,6 +1,6 @@
 package by.kharitonov.task4_1.entity;
 
-import org.jetbrains.annotations.NotNull;
+import by.kharitonov.task4_1.exception.IntegerArrayException;
 
 import java.util.Optional;
 
@@ -13,7 +13,10 @@ public class IntegerArray {
         dataArray = new int[size];
     }
 
-    public IntegerArray(@NotNull int[] dataArray) {
+    public IntegerArray(int[] dataArray) throws IntegerArrayException {
+        if (dataArray == null) {
+            throw new IntegerArrayException("Input array has null pointer!");
+        }
         this.dataArray = new int[dataArray.length];
         copy(dataArray);
     }
@@ -90,7 +93,9 @@ public class IntegerArray {
     }
 
     public IntegerArray copy() {
-        return new IntegerArray(dataArray);
+        IntegerArray copyArray = new IntegerArray(dataArray.length);
+        copyArray.copy(dataArray);
+        return copyArray;
     }
 
     private boolean equalsTo(IntegerArray array) {

@@ -1,7 +1,7 @@
 package by.kharitonov.task4_1.validator;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
-import by.kharitonov.task4_1.entity.SortDirection;
+import by.kharitonov.task4_1.type.SortDirection;
 
 public class ArrayValidator {
     public boolean validateIndexes(IntegerArray array, int... indexes) {

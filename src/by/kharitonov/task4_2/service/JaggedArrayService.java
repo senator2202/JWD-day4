@@ -1,8 +1,8 @@
 package by.kharitonov.task4_2.service;
 
-import by.kharitonov.task4_1.entity.SortDirection;
-import by.kharitonov.task4_2.entity.PeakType;
-import by.kharitonov.task4_2.entity.SortType;
+import by.kharitonov.task4_1.type.SortDirection;
+import by.kharitonov.task4_2.type.PeakType;
+import by.kharitonov.task4_2.type.SortType;
 import by.kharitonov.task4_2.validator.JaggedArrayValidator;
 
 public class JaggedArrayService {
