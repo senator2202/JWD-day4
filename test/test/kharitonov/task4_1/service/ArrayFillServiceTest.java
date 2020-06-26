@@ -120,10 +120,22 @@ public class ArrayFillServiceTest {
         assertFalse(actual);
     }
 
-    @Test(expectedExceptions = IntegerArrayException.class)
+    @Test(expectedExceptions = IntegerArrayException.class,
+            expectedExceptionsMessageRegExp = "All values must be integer!")
     public void testConsoleFillException() throws IntegerArrayException {
         IntegerArray array = new IntegerArray(5);
-        String data = "100UlaUlala" + System.lineSeparator();
+        String data = "100.23" + System.lineSeparator();
+        ByteArrayInputStream in =
+                new ByteArrayInputStream(data.getBytes());
+        System.setIn(in);
+        arrayFillService.consoleFill(array);
+    }
+
+    @Test(expectedExceptions = IntegerArrayException.class,
+            expectedExceptionsMessageRegExp = "Not enough data!")
+    public void testConsoleFillException1() throws IntegerArrayException {
+        IntegerArray array = new IntegerArray(5);
+        String data = "100" + System.lineSeparator();
         ByteArrayInputStream in =
                 new ByteArrayInputStream(data.getBytes());
         System.setIn(in);
