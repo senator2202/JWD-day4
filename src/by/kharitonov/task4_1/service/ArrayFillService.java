@@ -29,7 +29,8 @@ public class ArrayFillService {
         return true;
     }
 
-    public boolean consoleFill(IntegerArray array) throws IntegerArrayException {
+    public boolean consoleFill(IntegerArray array)
+            throws IntegerArrayException {
         ArrayFillerValidator validator = new ArrayFillerValidator();
         if (array == null) {
             return false;

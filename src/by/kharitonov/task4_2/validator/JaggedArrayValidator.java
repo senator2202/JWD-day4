@@ -1,6 +1,6 @@
 package by.kharitonov.task4_2.validator;
 
-import by.kharitonov.task4_2.type.SortType;
+import by.kharitonov.task4_2.enumeration.SortType;
 
 public class JaggedArrayValidator {
     public boolean validateSortingParameters(int[][] jArray,

@@ -1,6 +1,6 @@
 package test.kharitonov.task4_2.validator;
 
-import by.kharitonov.task4_2.type.SortType;
+import by.kharitonov.task4_2.enumeration.SortType;
 import by.kharitonov.task4_2.validator.JaggedArrayValidator;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Parameters;

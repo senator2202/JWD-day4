@@ -1,8 +1,8 @@
 package by.kharitonov.task4_1.service;
 
 import by.kharitonov.task4_1.entity.IntegerArray;
+import by.kharitonov.task4_1.enumeration.SortDirection;
 import by.kharitonov.task4_1.exception.IntegerArrayException;
-import by.kharitonov.task4_1.type.SortDirection;
 import by.kharitonov.task4_1.validator.ArrayValidator;
 
 public class ArraySearchService {

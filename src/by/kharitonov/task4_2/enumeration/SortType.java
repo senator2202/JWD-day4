@@ -1,6 +1,6 @@
-package by.kharitonov.task4_2.type;
+package by.kharitonov.task4_2.enumeration;
 
-import by.kharitonov.task4_1.type.SortDirection;
+import by.kharitonov.task4_1.enumeration.SortDirection;
 
 public enum SortType {
     INCREASING_SUM(SortDirection.UP, PeakType.NONE),

@@ -45,7 +45,8 @@ public class ArrayParserTest {
     @Parameters("data")
     @Test(expectedExceptions = IntegerArrayException.class,
             dataProvider = "dataParseArrayException")
-    public void testParseArrayException(String[] data) throws IntegerArrayException {
+    public void testParseArrayException(String[] data)
+            throws IntegerArrayException {
         arrayParser.parseArray(data);
     }
 }
